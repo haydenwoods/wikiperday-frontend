@@ -9,10 +9,6 @@ declare module "*.json" {
   export default value
 }
 
-declare module "socket.io-client" {
-  export = SocketIO;
-}
-
 declare module "qrcode";
 
 declare module "tailwindcss";
