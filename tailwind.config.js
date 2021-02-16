@@ -4,6 +4,8 @@ module.exports = {
       width: {
         "120": "30rem",
         "112": "28rem",
+        "88": "22rem",
+        "84": "21rem",
       },
       colors: {
         // Accents
@@ -14,13 +16,21 @@ module.exports = {
 
         // Backgrounds
         "background-primary": "var(--background-primary)",
+        "background-secondary": "var(--background-secondary)",
+
+        // Borders
+        "border-primary": "var(--border-primary)",
+        "border-secondary": "var(--border-secondary)",
 
         // Titles
         "title-primary": "var(--title-primary)",
+        "title-secondary": "var(--title-secondary)",
+        "title-tertiary": "var(--title-tertiary)",
           
         // Texts
         "text-primary": "var(--text-primary)",
         "text-secondary": "var(--text-secondary)",
+        "text-tertiary": "var(--text-tertiary)",
 
         // Inputs
         "input-background-primary": "var(--input-background-primary)",
@@ -36,4 +46,10 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      borderWidth: ["last"],
+      padding: ["first", "last"],
+    }
+  }
 }

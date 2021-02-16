@@ -1,13 +1,7 @@
 <template>
-  <div class="h-14 border-b border-gray-200 border-solid">
-    <div class="h-full flex flex-row px-4 items-center">
-      <div class="flex ml-auto">
-        <Button @click="openModal('signin')" type="text">Sign in</Button>
-        <Spacer vertical multiplier="2"/>
-        <Button @click="openModal('signup')" >Sign up</Button>
-      </div>
-    </div>
-  </div>
+  <Button @click="openModal('signin')" type="text">Sign in</Button>
+  <Spacer vertical multiplier="6"/>
+  <Button @click="openModal('signup')" >Sign up</Button>
 </template>
 
 <script lang="ts">
@@ -18,7 +12,7 @@
   import Spacer from "@/components/atoms/Spacer.vue";
 
   export default defineComponent({
-    name: "Header",
+    name: "AuthActions",
     components: {
       Button,
       Spacer,

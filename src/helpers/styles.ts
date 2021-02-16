@@ -15,8 +15,8 @@ export const propsToClasses = ({ defaults, styles, }: ParseStylesProps): string 
       values, 
     } = style;
 
-    if (value) {
-      const style: string = values[value.toString()];
+    if (value !== undefined && value !== "") {
+      const style: string = values[value?.toString()];
       return style ? `${classes} ${style}` : classes;
     }
 

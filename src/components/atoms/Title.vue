@@ -12,9 +12,16 @@
   import { propsToClasses, } from "@/helpers/styles";
   import { Align, Size, } from "@/types/styles";
 
+  type Type = "title" | "accent-text";
+  type Wrap = "wrap" | "nowrap";
+
   export default defineComponent({
     name: "Title",
     props: {
+      type: {
+        type: String as PropType<Type>,
+        default: "primary",
+      },
       align: {
         type: String as PropType<Align>,
         default: "left",
@@ -23,11 +30,26 @@
         type: String as PropType<Size>,
         default: "md",
       },
+      wrap: {
+        type: String as PropType<Wrap>,
+        default: "wrap",
+      }
     },
     setup(props) {
       const classes = computed(() => propsToClasses({
-        defaults: "font-proximaNova font-bold text-title-primary",
+        defaults: "font-proximaNova font-bold",
         styles: [
+          {
+            value: props.type,
+            values: {
+              "primary": "text-title-primary",
+              "secondary": "text-title-secondary",
+              "tertiary": "text-title-tertiary",
+              "bg-primary": "text-bg-primary",
+              "bg-secondary": "text-bg-secondary",
+              "accent-text": "text-accent-text-primary",
+            },
+          },
           {
             value: props.align,
             values: {
@@ -39,9 +61,16 @@
           {
             value: props.size,
             values: {
-              "sm": "text-xl",
-              "md": "text-3xl",
-              "lg": "text-5xl",
+              "sm": "text-xl tracking-wide",
+              "md": "text-3xl tracking-wide",
+              "lg": "text-4xl",
+              "xlg": "text-5xl",
+            },
+          },
+          {
+            value: props.wrap,
+            values: {
+              "nowrap": "whitespace-nowrap",
             },
           },
         ],

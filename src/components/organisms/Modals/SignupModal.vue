@@ -11,20 +11,18 @@
     </template>
 
     <template v-slot:content>
-      <FormController :validations="formValidations" @onSubmit="formSubmit" @onError="formError">
-        <div class="flex flex-row">
-          <TextInput
-            name="firstName"
-            placeholder="First name"
-            icon="userCircle"
-          />
-          <Spacer vertical multiplier="4"/>
-          <TextInput
-            name="lastName"
-            placeholder="Last name"
-            icon="userGroup"
-          />
-        </div>
+      <FormController :validations="formValidations" @onSubmit="onFormSubmit" @onError="onFormError">
+        <TextInput
+          name="firstName"
+          placeholder="First name"
+          icon="userCircle"
+        />
+        <Spacer horizontal multiplier="4"/>
+        <TextInput
+          name="lastName"
+          placeholder="Last name"
+          icon="userGroup"
+        />
         <Spacer horizontal multiplier="4"/>
         <TextInput
           name="email"
@@ -51,20 +49,29 @@
         </Button>
       </FormController>
 
+      <template v-if="error">
+        <Spacer horizontal multiplier="4"/>
+        <Text v-if="error" type="error" align="center">
+          {{ error }}
+        </Text>
+      </template>
+
       <Spacer horizontal multiplier="6"/>
 
       <Text align="center">
         Already have an account? 
-        <span class="text-accent-primary cursor-pointer" @click="openModal('signin')">
-          Sign in.
-        </span>
+        <Button type="text" height="xsm" @click="openModal('signin')">
+          <span class="text-accent-primary">
+            Sign in.
+          </span>
+        </Button>
       </Text>
     </template>
   </Modal>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from "vue";
+  import { defineComponent, ref, computed } from "vue";
   import { useStore } from "vuex";
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
@@ -90,17 +97,20 @@
     },
     setup() {
       const store = useStore();
-      const error = ref();
+
+      const formError = ref();
+      const reqError = computed(() => store.state?.error?.errors["signup"]?.message);
+      const error = computed(() => formError.value || reqError.value);
 
       const openModal = (modalName: string) => store.commit("modals/openModal", modalName);
 
-      const formSubmit = (formValues: Record<string, string>) => {
+      const onFormSubmit = (formValues: Record<string, string>) => {
+        formError.value = null;
         store.dispatch("user/signup", formValues);
       }
 
-      const formError = (errorMessage: string) => {
-        console.log(errorMessage);
-        error.value = errorMessage;
+      const onFormError = (error: string) => {
+        formError.value = error;
       }
 
       const formValidations = {
@@ -114,8 +124,8 @@
       return {
         error,
         openModal,
-        formSubmit,
-        formError,
+        onFormSubmit,
+        onFormError,
         formValidations,
       };
     },

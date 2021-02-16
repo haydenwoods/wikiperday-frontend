@@ -1,21 +1,18 @@
 <template>
   <button :class="outerClasses">
-    <div 
-      :class="innerClasses"
-      tabindex="-1"
-    >
-      <slot />
+    <div :class="innerClasses" tabindex="-1">
+      <slot/>
     </div>
   </button>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, computed, Prop } from "vue";
+  import { defineComponent, PropType, computed, ref } from "vue";
   import { propsToClasses, } from "@/helpers/styles";
 
-  type Type = "primary" | "secondary" | "text";
-  type Width = "content" | "full";
-  type Height = "sm" | "md" | "lg";
+  export type Type = "primary" | "secondary" | "text";
+  export type Width = "content" | "full";
+  export type Height = "sm" | "md" | "lg";
 
   export default defineComponent({
     name: "Button",
@@ -35,13 +32,13 @@
     },
     setup(props) {
       const innerClasses = computed(() => propsToClasses({
-        defaults: "h-9 px-4 text-base rounded-xl tracking-wide outline-none flex justify-center items-center",
+        defaults: "relative text-base rounded-xl tracking-wide outline-none flex justify-center items-center",
         styles: [
           {
             value: props.type,
             values: {
-              "primary": "bg-accent-primary text-accent-text-primary font-medium",
-              "secondary": "bg-gray-300 text-gray-600 font-medium",
+              "primary": "bg-accent-primary text-accent-text-primary font-medium px-4",
+              "secondary": "bg-gray-300 text-gray-600 font-medium px-4",
               "text": "text-gray-600 hover:underline",
             }
           },
@@ -55,7 +52,8 @@
           {
             value: props.height,
             values: {
-              "sm": "h-7",
+              "xsm": "h-4",
+              "sm": "h-6",
               "md": "h-9",
               "lg": "h-11 tracking-wider",
             }

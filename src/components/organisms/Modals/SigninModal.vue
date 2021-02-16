@@ -11,7 +11,7 @@
     </template>
 
     <template v-slot:content>
-      <FormController :validations="formValidations" @onSubmit="formSubmit" @onError="formError">
+      <FormController :validations="formValidations" @onSubmit="onFormSubmit" @onError="onFormError">
         <TextInput
           name="email"
           placeholder="Email"
@@ -29,21 +29,30 @@
           Sign in
         </Button>
       </FormController>
-
+      
+      <template v-if="error">
+        <Spacer horizontal multiplier="4"/>
+        <Text v-if="error" type="error" align="center">
+          {{ error }}
+        </Text>
+      </template>
+      
       <Spacer horizontal multiplier="6"/>
 
       <Text align="center">
         Don't have an account? 
-        <span class="text-accent-primary cursor-pointer" @click="openModal('signup')">
-          Sign up.
-        </span>
+        <Button type="text" height="xsm" @click="openModal('signup')">
+          <span class="text-accent-primary">
+            Sign up.
+          </span>
+        </Button>
       </Text>
     </template>
   </Modal>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from "vue";
+  import { defineComponent, ref, computed } from "vue";
   import { useStore } from "vuex";
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
@@ -69,16 +78,20 @@
     },
     setup() {
       const store = useStore();
-      const error = ref();
+
+      const formError = ref();
+      const reqError = computed(() => store.state?.error?.errors["signin"]?.message);
+      const error = computed(() => formError.value || reqError.value);
 
       const openModal = (modalName: string) => store.commit("modals/openModal", modalName);
 
-      const formSubmit = (formValues: Record<string, string>) => {
+      const onFormSubmit = (formValues: Record<string, string>) => {
+        formError.value = null;
         store.dispatch("auth/signin", formValues);
       }
 
-      const formError = (errorMessage: string) => {
-        error.value = errorMessage;
+      const onFormError = (error: string) => {
+        formError.value = error;
       }
 
       const formValidations = {
@@ -89,8 +102,8 @@
       return {
         error,
         openModal,
-        formSubmit,
-        formError,
+        onFormSubmit,
+        onFormError,
         formValidations,
       };
     },

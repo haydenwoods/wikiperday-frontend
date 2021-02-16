@@ -23,9 +23,18 @@ export const user = {
         email,
         password,
       }).then((res) => {
-        console.log(res);
-      }).catch((err) => { 
-        console.log(err);
+        context.commit("modals/closeModal", "signup", { root: true });
+        context.commit("error/clrError", { name: "signup" }, { root: true });
+      }).catch((error) => { 
+        const res = error?.response;
+        const message = res?.data?.message;
+        
+        message && context.commit("error/setError", { 
+          name: "signup", 
+          error: { 
+            message,
+          },
+        }, { root: true });
       });
     },
   }

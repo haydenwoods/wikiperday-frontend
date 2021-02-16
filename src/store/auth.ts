@@ -1,15 +1,28 @@
 import axios from "axios";
-import { setAuth, getAuth } from "@/helpers/auth";
+import { setAuth, getAuth, clrAuth } from "@/helpers/auth";
+import { User } from "@/types/user";
 
 const BASE_URL = process.env.VUE_APP_API_URL;
 
-export const auth = {
+type State = {
+  user: User | null
+}
+
+export const auth: {
+  state: State,
+  [key: string]: any
+} = {
   namespaced: true,
   state: {
-
+    user: null,
   },
   mutations: {
-
+    setUser(state: State, user: User) {
+      state.user = user;
+    },
+    clrUser(state: State) {
+      state.user = null;
+    },
   },
   actions: {
     signin(context: any, { email, password }: {
@@ -23,9 +36,22 @@ export const auth = {
 
         setAuth(auth);
         context.dispatch("session");
-      }).catch((err) => { 
-        console.log(err);
+        context.commit("error/clrError", { name: "signin" }, { root: true });
+      }).catch((error) => { 
+        const res = error?.response;
+        const message = res?.data?.message;
+        
+        message && context.commit("error/setError", { 
+          name: "signin", 
+          error: { 
+            message,
+          },
+        }, { root: true });
       });
+    },
+    signout(context: any) {
+      clrAuth();
+      context.commit("clrUser");
     },
     session(context: any) {
       const auth = getAuth();
@@ -35,9 +61,11 @@ export const auth = {
           ...(auth ? { "Authorization": auth } : {}),
         },
       }).then((res) => {
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
+        const user = res?.data?.user;
+        context.commit("setUser", user);
+        context.commit("modals/closeModal", "signin", { root: true });
+      }).catch((error) => {
+        console.log(error);
       }); 
     }
   }

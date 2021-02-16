@@ -1,14 +1,7 @@
 <template>
   <main class="min-h-screen">
     <router-view />
-
-    <div 
-      v-if="openModal"
-      class="min-h-screen w-screen absolute top-0 left-0 bg-black bg-opacity-40 flex justify-center items-center py-8"
-    >
-      <SigninModal v-if="openModal === 'signin'"/>
-      <SignupModal v-if="openModal === 'signup'"/>
-    </div>
+    <Modals/>
   </main>
 </template>
 
@@ -19,16 +12,14 @@
   import { DEFAULT_THEME } from "@/theme";
   import { setTheme } from "@/theme/utils";
   
-  import SigninModal from "@/components/organisms/Modals/SigninModal.vue";
-  import SignupModal from "@/components/organisms/Modals/SignupModal.vue";
+  import Modals from "@/components/organisms/Modals/Modals.vue";
 
   import "@/styles/_generated.css";
 
   export default defineComponent({
     name: "App",
     components: {
-      SigninModal,
-      SignupModal,
+      Modals,
     },
     setup() {
       const store = useStore();
