@@ -3,7 +3,7 @@
     <Icon 
       v-if="icon" 
       class="self-center pr-2"
-      :icon="icon" 
+      :name="icon" 
       size="md"
     />
     

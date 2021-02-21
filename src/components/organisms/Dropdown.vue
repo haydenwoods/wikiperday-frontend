@@ -5,7 +5,7 @@
     <div class="pl-1.5">
       <Icon 
         :class="iconClasses"
-        icon="chevronDown" 
+        name="chevronDown" 
         size="xsm"
       />
     </div>
@@ -52,13 +52,13 @@
       }));
 
       const menuClasses = computed(() => propsToClasses({
-        defaults: "absolute top-full right-0 transition-all transform",
+        defaults: "absolute top-full right-0 transition-all ease-out duration-100 transform origin-top-right",
         styles: [
           {
             value: menuOpen.value,
             values: {
-              "true": "opacity-100 translate-y-0",
-              "false": "opacity-0 pointer-events-none select-none -translate-y-2",
+              "true": "opacity-100 scale-100",
+              "false": "opacity-0 pointer-events-none select-none scale-50",
             }
           },
         ],

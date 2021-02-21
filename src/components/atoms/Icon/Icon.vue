@@ -1,6 +1,6 @@
 <template>
-  <div :name="`icon-${icon}`" :class="classes">
-    <component :class="classes" :is="icon"></component>
+  <div :name="`icon-${name}`" :class="classes">
+    <component :class="classes" :is="name"></component>
   </div>
 </template>
 
@@ -10,39 +10,53 @@
 
   import { Size } from "@/types/styles";
 
+  import beaker from "./Icons/beaker.vue";
   import bookmark from "./Icons/bookmark.vue";
+  import checkCircle from "./Icons/checkCircle.vue";
   import chevronDown from "./Icons/chevronDown.vue";
   import chevronRight from "./Icons/chevronRight.vue";
+  import chip from "./Icons/chip.vue";
   import cog from "./Icons/cog.vue";
   import dailyread from "./Icons/dailyread.vue";
   import home from "./Icons/home.vue";
   import lock from "./Icons/lock.vue";
   import logout from "./Icons/logout.vue";
   import mail from "./Icons/mail.vue";
+  import map from "./Icons/map.vue";
+  import musicNote from "./Icons/musicNote.vue";
+  import trash from "./Icons/trash.vue";
   import userCircle from "./Icons/userCircle.vue";
   import userGroup from "./Icons/userGroup.vue";
   import x from "./Icons/x.vue";
+  import xCircle from "./Icons/xCircle.vue";
 
   type Type = "primary" | "secondary" | "tertiary";
 
   export default defineComponent({
     name: "Icon",
     components: {
+      beaker,
       bookmark,
-      chevronRight,
+      checkCircle,
       chevronDown,
+      chevronRight,
+      chip,
       cog,
       dailyread,
       home,
       lock,
       logout,
       mail,
+      map,
+      musicNote,
+      trash,
       userCircle,
       userGroup,
       x,
+      xCircle,
     },
     props: {
-      icon: {
+      name: {
         type: String,
       },
       size: {
@@ -56,7 +70,6 @@
     },
     setup(props) {
       const classes = computed(() => propsToClasses({
-        defaults: "text-text-secondary",
         styles: [
           {
             value: props.size,
@@ -65,8 +78,8 @@
               "sm": "h-5",
               "md": "h-6",
               "lg": "h-7",
-              "xlg": "h-9",
-              "xxlg": "h-11",
+              "xlg": "h-8",
+              "xxlg": "h-12",
             },
           },
           {
@@ -75,6 +88,8 @@
               "primary": "text-text-primary",
               "secondary": "text-text-secondary",
               "tertiary": "text-text-tertiary",
+              "success": "text-accent-green",
+              "error": "text-accent-red",
             }
           }
         ],

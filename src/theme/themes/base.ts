@@ -7,6 +7,13 @@ export const base: Theme = {
   "accent-text-primary": COLORS["blue-100"],
   "accent-secondary": COLORS["blue-300"],
   "accent-text-secondary": COLORS["blue-100"],
+
+  // Varieties
+  "accent-blue": COLORS["blue-300"],
+  "accent-red": COLORS["red-300"],
+  "accent-green": COLORS["green-300"],
+  "accent-orange": COLORS["orange-300"],
+  "accent-purple": COLORS["purple-300"],
   
   // Backgrounds
   "background-primary": COLORS["grey-50"],

@@ -5,7 +5,7 @@
         Sign up
       </Title>
       <Spacer horizontal multiplier="1"/>
-      <Text align="center" type="light">
+      <Text align="center" type="secondary">
         Sign up for a new account here.
       </Text>
     </template>

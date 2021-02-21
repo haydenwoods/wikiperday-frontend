@@ -25,4 +25,16 @@ export const COLORS = {
   "blue-100": "#edf3fc",
   "blue-300": "#5393ff",
   "blue-500": "#2979ff",
+
+  // Orange 
+  "orange-300": "#ffac33",
+
+  // Purple 
+  "purple-300": "#af52bf",
+
+  // Red 
+  "red-300": "#ff4569",
+
+  // Green
+  "green-300": "#6fbf73",
 };

@@ -37,9 +37,11 @@
           {
             value: props.type,
             values: {
-              "body": "text-text-primary",
-              "error": "text-red-500",
-              "light": "text-text-secondary",
+              "primary": "text-text-primary",
+              "secondary": "text-text-secondary",
+              "tertiary": "text-text-tertiary",
+              "success": "text-accent-green",
+              "error": "text-accent-red",
             }
           },
           {

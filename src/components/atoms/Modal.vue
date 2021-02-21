@@ -2,7 +2,7 @@
   <div class="relative z-10 w-112 rounded-2xl px-6 py-6 bg-white">
     <div class="absolute top-4 left-4 cursor-pointer">
       <Button type="text" height="sm" @click="closeModal">
-        <Icon class="text-text-secondary" icon="x"/>
+        <Icon class="text-text-secondary" name="x"/>
       </Button>
     </div>
 

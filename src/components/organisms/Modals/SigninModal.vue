@@ -5,7 +5,7 @@
         Sign in
       </Title>
       <Spacer horizontal multiplier="1"/>
-      <Text align="center" type="light">
+      <Text align="center" type="secondary">
         Sign in to your account here.
       </Text>
     </template>

@@ -52,6 +52,7 @@
           {
             value: props.height,
             values: {
+              "none": "",
               "xsm": "h-4",
               "sm": "h-6",
               "md": "h-9",

@@ -1,17 +1,17 @@
 <template>
   <Dropdown type="text">
-    {{ name }}
+    {{ fullName }}
 
     <template v-slot:menu>
       <Menu>
         <MenuItem>
-          <Icon size="sm" icon="cog"></Icon>
+          <Icon size="sm" name="cog"></Icon>
           <Spacer vertical multiplier="2"/>
           <Text>Account settings</Text>
         </MenuItem>
 
         <MenuItem @click="onSignout">
-          <Icon size="sm" icon="logout"></Icon>
+          <Icon size="sm" name="logout"></Icon>
           <Spacer vertical multiplier="2"/>
           <Text>Sign out</Text>
         </MenuItem>
@@ -47,14 +47,10 @@
     setup() {
       const store = useStore();
 
-      const user = computed(() => store.state?.auth?.user);
-      const name = getUserFullName(user.value);
-
       const onSignout = () => store.dispatch("auth/signout");
 
       return {
-        user,
-        name,
+        fullName: getUserFullName(),
         onSignout,
       }
     },

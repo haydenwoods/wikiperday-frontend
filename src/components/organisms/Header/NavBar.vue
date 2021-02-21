@@ -2,20 +2,20 @@
   <div class="flex items-center">
     <div class="h-10 w-10 bg-accent-primary flex items-center justify-center rounded-full">
       <Button type="text" height="sm">
-        <Icon type="tertiary" icon="home" size="lg"/>
+        <Icon type="tertiary" name="home" size="lg"/>
       </Button>
     </div>
 
     <Spacer vertical multiplier="10"/>
     
     <Button type="text" height="sm">
-      <Icon icon="bookmark" size="lg"/>
+      <Icon name="userGroup" size="lg"/>
     </Button>
 
     <Spacer vertical multiplier="10"/>
 
     <Button type="text" height="sm">
-      <Icon icon="cog" size="lg"/>
+      <Icon name="cog" size="lg"/>
     </Button>
   </div>
 </template>

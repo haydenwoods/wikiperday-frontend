@@ -25,5 +25,6 @@ module.exports = {
       },
     }],
     "@typescript-eslint/no-inferrable-types": 0,
+    "vue/no-unused-components": 0,
   }
 }

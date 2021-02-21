@@ -64,8 +64,9 @@ export const auth: {
         const user = res?.data?.user;
         context.commit("setUser", user);
         context.commit("modals/closeModal", "signin", { root: true });
-      }).catch((error) => {
-        console.log(error);
+      }).catch((err) => {
+        console.error("session error > ", err);
+        clrAuth();
       }); 
     }
   }

@@ -2,6 +2,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
+        "320": "80rem",
         "120": "30rem",
         "112": "28rem",
         "88": "22rem",
@@ -13,6 +14,13 @@ module.exports = {
         "accent-text-primary": "var(--accent-text-primary)",
         "accent-secondary": "var(--accent-secondary)",
         "accent-text-secondary": "var(--accent-text-secondary)",
+
+        // Varieties
+        "accent-blue": "var(--accent-blue)",
+        "accent-red": "var(--accent-red)",
+        "accent-green": "var(--accent-green)",
+        "accent-orange": "var(--accent-orange)",
+        "accent-purple": "var(--accent-purple)",
 
         // Backgrounds
         "background-primary": "var(--background-primary)",

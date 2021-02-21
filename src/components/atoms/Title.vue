@@ -70,7 +70,7 @@
           {
             value: props.wrap,
             values: {
-              "nowrap": "whitespace-nowrap",
+              "nowrap": "whitespace-nowrap overflow-ellipsis",
             },
           },
         ],

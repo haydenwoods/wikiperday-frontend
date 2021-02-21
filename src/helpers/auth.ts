@@ -10,8 +10,10 @@ export const clrAuth = () => localStorage.removeItem(AUTH_STORAGE_KEY);
 export const isLoggedIn = () => {
   return computed(() => {
     const store = useStore();
+
     const user = store.state?.auth?.user;
     const isLoggedIn = user ? true : false;
+    
     return isLoggedIn;
   });
 }

@@ -1,13 +1,17 @@
 <template>
   <div :class="classes">
-    <div>
-      <Title type="tertiary" size="sm" align="center">
-        {{ title }}
-      </Title>
-      <Title type="tertiary" size="md" align="center">
-        {{ subtitle }}
-      </Title>
-    </div>
+    <slot>
+      <div class="h-full w-full flex items-center justify-center">
+        <div>
+          <Title type="tertiary" size="sm" align="center">
+            {{ title }}
+          </Title>
+          <Title type="tertiary" size="md" align="center">
+            {{ subtitle }}
+          </Title>
+        </div>
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -34,16 +38,29 @@
       color: {
         type: String,
       },
+      size: {
+        type: String,
+        default: "md",
+      }
     },
     setup(props) {
       const classes = computed(() => propsToClasses({
-        defaults: "h-20 w-20 rounded-xl flex justify-center items-center",
+        defaults: "inline-block rounded-xl flex-shrink-0 flex-grow-0",
         styles: [
           {
             value: props.color ? true : false,
             values: {
               "true": `bg-${props.color}`,
               "false": "bg-accent-primary",
+            }
+          },
+          {
+            value: props.size,
+            values: {
+              "sm": "h-14 w-14",
+              "md": "h-20 w-20",
+              "lg": "h-24 w-24",
+              "xlg": "h-28 w-28",
             }
           }
         ],
