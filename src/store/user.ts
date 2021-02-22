@@ -4,12 +4,6 @@ const BASE_URL = process.env.VUE_APP_API_URL;
 
 export const user = {
   namespaced: true,
-  state: {
-
-  },
-  mutations: {
-
-  },
   actions: {
     signup(context: any, { firstName, lastName, email, password }: {
       firstName: string,

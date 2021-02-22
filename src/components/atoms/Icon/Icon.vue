@@ -18,12 +18,14 @@
   import chip from "./Icons/chip.vue";
   import cog from "./Icons/cog.vue";
   import dailyread from "./Icons/dailyread.vue";
+  import eye from "./Icons/eye.vue";
   import home from "./Icons/home.vue";
   import lock from "./Icons/lock.vue";
   import logout from "./Icons/logout.vue";
   import mail from "./Icons/mail.vue";
   import map from "./Icons/map.vue";
   import musicNote from "./Icons/musicNote.vue";
+  import plusCircle from "./Icons/plusCircle.vue";
   import trash from "./Icons/trash.vue";
   import userCircle from "./Icons/userCircle.vue";
   import userGroup from "./Icons/userGroup.vue";
@@ -43,12 +45,14 @@
       chip,
       cog,
       dailyread,
+      eye,
       home,
       lock,
       logout,
       mail,
       map,
       musicNote,
+      plusCircle,
       trash,
       userCircle,
       userGroup,

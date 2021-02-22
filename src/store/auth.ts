@@ -1,5 +1,6 @@
 import axios from "axios";
-import { setAuth, getAuth, clrAuth } from "@/helpers/auth";
+import router from "@/router";
+import { setAuth, clrAuth } from "@/helpers/auth";
 import { User } from "@/types/user";
 
 const BASE_URL = process.env.VUE_APP_API_URL;
@@ -17,10 +18,20 @@ export const auth: {
     user: null,
   },
   mutations: {
-    setUser(state: State, user: User) {
+    setUser(state: State, { user }: { 
+      user: User 
+    }) {
       state.user = user;
     },
-    clrUser(state: State) {
+    updateUser(state: State, { user }: { 
+      user: User 
+    }) {
+      state.user = {
+        ...state.user,
+        ...user,
+      }
+    },  
+    clearUser(state: State) {
       state.user = null;
     },
   },
@@ -29,14 +40,19 @@ export const auth: {
       email: string,
       password: string
     }) {
-      axios.post(`${BASE_URL}/auth/signin`, { email, password }).then((res) => {
+      axios.post(`${BASE_URL}/auth/signin`, { 
+        email, 
+        password 
+      }).then((res) => {
         const {
           auth,
         } = res?.data;
 
         setAuth(auth);
         context.dispatch("session");
-        context.commit("error/clrError", { name: "signin" }, { root: true });
+        context.commit("error/clrError", { 
+          name: "signin" 
+        }, { root: true });
       }).catch((error) => { 
         const res = error?.response;
         const message = res?.data?.message;
@@ -51,22 +67,19 @@ export const auth: {
     },
     signout(context: any) {
       clrAuth();
-      context.commit("clrUser");
+      context.commit("clearUser");
+      router.push("/");
     },
     session(context: any) {
-      const auth = getAuth();
-      
-      axios.get(`${BASE_URL}/auth/session`, { 
-        headers: {
-          ...(auth ? { "Authorization": auth } : {}),
-        },
-      }).then((res) => {
-        const user = res?.data?.user;
-        context.commit("setUser", user);
+      axios.get(`${BASE_URL}/auth/session`)
+      .then((res) => {
+        const user: User = res?.data?.user;
+        context.commit("setUser", { user });
         context.commit("modals/closeModal", "signin", { root: true });
       }).catch((err) => {
-        console.error("session error > ", err);
         clrAuth();
+        router.push("/");
+        console.error("session error > ", err);
       }); 
     }
   }

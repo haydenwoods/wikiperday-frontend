@@ -6,7 +6,9 @@
     :target="newtab ? '_blank' : ''"
     :class="classes"
   >
-    <slot />
+    <div class="rounded-xl" tabindex="-1">
+      <slot />
+    </div>
   </component>
 </template>
 
@@ -39,6 +41,7 @@
     },
     setup(props) {
       const classes = computed(() => propsToClasses({
+        defaults: "rounded-xl",
         styles: [
           {
             value: props.display,
@@ -56,3 +59,14 @@
     },
   });
 </script>
+
+<style scoped>
+  a:focus,
+  a > div {
+    outline: none;
+  }
+
+  a:focus > div {
+    box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.25);
+  }
+</style>

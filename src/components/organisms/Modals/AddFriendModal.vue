@@ -2,12 +2,8 @@
   <Modal>
     <template v-slot:header>
       <Title align="center">
-        Sign in
+        Add friend
       </Title>
-      <Spacer horizontal multiplier="1"/>
-      <Text align="center" type="secondary">
-        Sign in to your account here.
-      </Text>
     </template>
 
     <template v-slot:content>
@@ -17,36 +13,23 @@
           placeholder="Email"
           icon="mail"
         />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
-          name="password"
-          placeholder="Password"
-          type="password"
-          icon="lock"
-        />
-        <Spacer horizontal multiplier="8"/>
-        <Button width="full" height="lg">
-          Sign in
-        </Button>
+        <div class="flex flex-row-reverse justify-center pt-8">
+          <Button>
+            Submit
+          </Button>
+          <Spacer vertical multiplier="4"/>
+          <Button type="secondary" @click="closeModal">
+            Cancel
+          </Button>
+        </div>
       </FormController>
-      
+
       <template v-if="error">
         <Spacer horizontal multiplier="4"/>
         <Text type="error" align="center">
           {{ error }}
         </Text>
       </template>
-      
-      <Spacer horizontal multiplier="6"/>
-
-      <Text align="center">
-        Don't have an account? 
-        <Button type="text" height="xsm" @click="openModal('signup')">
-          <span class="text-accent-primary">
-            Sign up.
-          </span>
-        </Button>
-      </Text>
     </template>
   </Modal>
 </template>
@@ -79,15 +62,15 @@
     setup() {
       const store = useStore();
 
+      const closeModal = () => store.commit("modals/closeModal");
+
       const formError = ref();
-      const reqError = computed(() => store.state?.error?.errors["signin"]?.message);
+      const reqError = computed(() => store.state?.error?.errors["friendsRequest"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const openModal = (modalName: string) => store.commit("modals/openModal", modalName);
-
       const onFormSubmit = (formValues: Record<string, string>) => {
-        formError.value = null;
-        store.dispatch("auth/signin", formValues);
+        store.dispatch("friends/request", formValues);
+        closeModal();
       }
 
       const onFormError = (error: string) => {
@@ -96,15 +79,14 @@
 
       const formValidations = {
         "email": [VALIDATIONS.REQUIRED],
-        "password": [VALIDATIONS.REQUIRED],
       }
 
       return {
         error,
-        openModal,
         onFormSubmit,
         onFormError,
         formValidations,
+        closeModal, 
       };
     },
   });

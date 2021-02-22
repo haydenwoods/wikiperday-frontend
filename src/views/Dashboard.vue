@@ -1,6 +1,6 @@
 <template>
   <Page>
-    <div class="flex flex-row" v-if="isLoggedIn">
+    <div class="flex flex-row">
       <div class="w-3/4">
         <div class="w-full flex flex-row mb-8">
           <AccentBox
@@ -25,10 +25,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, } from "vue";
+  import { defineComponent, computed } from "vue";
 
-  import { getUserFirstName } from "@/helpers/user";
-  import { isLoggedIn } from "@/helpers/auth";
+  import { getUserFirstName, getUser, } from "@/helpers/user";
 
   import Page from "@/components/templates/Page.vue";
   import Spacer from "@/components/atoms/Spacer.vue";
@@ -50,9 +49,10 @@
       Categories,
     },
     setup() {
+      const user = getUser();
+
       return {
-        isLoggedIn: isLoggedIn(),
-        firstName: getUserFirstName(),
+        firstName: computed(() => getUserFirstName(user?.value)),
       }
     },  
   });

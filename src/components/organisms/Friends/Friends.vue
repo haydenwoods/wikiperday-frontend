@@ -18,12 +18,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, } from "vue";
+  import { defineComponent, computed, } from "vue";
 
-  import { getUserFriends } from "@/helpers/user";
+  import { getUser, getUserFriends } from "@/helpers/user";
 
   import Friend from "@/components/organisms/Friends/Friend.vue";
   import Linker from "@/components/atoms/Linker.vue";
+  import Button from "@/components/atoms/Button.vue";
   import Container from "@/components/atoms/Container.vue";
   import Title from "@/components/atoms/Title.vue";
   import Icon from "@/components/atoms/Icon/Icon.vue";
@@ -33,13 +34,16 @@
     components: {
       Friend,
       Linker,
+      Button,
       Container,
       Title,
       Icon,
     },
     setup() {
-      const friends = getUserFriends();
-      const hasFriends = friends?.value?.length > 0;
+      const user = getUser();
+
+      const friends = computed(() => getUserFriends(user?.value));
+      const hasFriends = computed(() => friends.value?.length > 0);
 
       return {
         friends,

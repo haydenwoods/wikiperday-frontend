@@ -1,55 +1,42 @@
-import { computed } from "vue";
+import { computed, ComputedRef } from "vue";
 import { useStore } from "vuex";
 import { User } from "@/types/user";
 
-export const getUser = () => {
+export const getUser = (): ComputedRef<User> => {
   return computed((): User => {  
     const store = useStore();
 
     const user: User = store.state?.auth?.user;
 
     return user;
-  }); 
-}
-
-export const getUserFirstName = (user?: User) => {
-  return computed(() => {
-    user = user ? user : getUser().value;
-
-    const firstName = user?.firstName;
-
-    return firstName;
   });
 }
 
-export const getUserFullName = (user?: User) => {
-  return computed(() => {
-    user = user ? user : getUser().value;
+export const getUserFirstName = (user: User) => {
+  const firstName = user?.firstName;
 
-    const firstName = user?.firstName;
-    const lastName = user?.lastName;
-    const fullName = `${firstName} ${lastName}`;
-
-    return fullName;
-  });
+  return firstName;
 }
 
-export const getUserFriends = (user?: User) => {
-  return computed(() => {
-    user = user ? user : getUser().value;
+export const getUserFullName = (user: User) => {
+  const firstName = user?.firstName;
+  const lastName = user?.lastName;
+  const fullName = `${firstName} ${lastName}`;
 
-    const friends = user?.friends;
-
-    return friends;
-  });
+  return fullName;
 }
 
-export const getUserRequests = (user?: User) => {
-  return computed(() => {
-    user = user ? user : getUser().value;
+export const getUserFriends = (user: User) => {
+  const friends = user?.friends;
+  return friends;
+}
 
-    const friends = user?.incomingFriendRequests;
+export const getUserRequests = (user: User) => {
+  const friends = user?.incomingFriendRequests;
+  return friends;
+}
 
-    return friends;
-  });
+export const getUserOutgoingRequests = (user: User) => {
+  const friends = user?.outgoingFriendRequests;
+  return friends;
 }

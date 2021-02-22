@@ -36,10 +36,8 @@
     setup() {
       const store = useStore();
 
-      const closeModal = () => store.commit("modals/closeModal");
-
       return {
-        closeModal,
+        closeModal: () => store.commit("modals/closeModal"),
       }
     },
   });

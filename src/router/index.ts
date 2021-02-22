@@ -1,9 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { routes } from "./routes";
+import { routes } from "@/router/routes";
+
+import { getAuth } from "@/helpers/auth";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const hasAuth = getAuth() ? true : false;
+
+  if (to.meta?.requiresAuth && !hasAuth) {
+    return next("/");
+  }
+
+  next();
+});
+
+export default router;

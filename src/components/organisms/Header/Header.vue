@@ -2,12 +2,10 @@
   <div class="h-14 border-b border-border-primary border-solid bg-background-primary">
     <div class="h-full flex flex-row px-6 items-center">
       <div class="flex-1">
-        <Linker to="/">
-          <Icon name="dailyread" size="xlg"/>
-        </Linker>
+        <Icon name="dailyread" size="xlg"/>
       </div>  
 
-      <NavBar/>
+      <NavBar v-if="isLoggedIn"/>
 
       <div class="flex flex-1 basis justify-end">
         <AuthUser v-if="isLoggedIn"/>
@@ -19,7 +17,7 @@
 
 <script lang="ts">
   import { defineComponent } from "vue";
-  import { isLoggedIn } from "@/helpers/auth";
+  import { getIsLoggedIn } from "@/helpers/auth";
 
   import Linker from "@/components/atoms/Linker.vue";
   import Icon from "@/components/atoms/Icon/Icon.vue";
@@ -39,7 +37,7 @@
     },
     setup() {
       return {
-        isLoggedIn: isLoggedIn(),
+        isLoggedIn: getIsLoggedIn(),
       }
     }
   });

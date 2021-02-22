@@ -52,7 +52,7 @@
       }));
 
       const menuClasses = computed(() => propsToClasses({
-        defaults: "absolute top-full right-0 transition-all ease-out duration-100 transform origin-top-right",
+        defaults: "absolute top-full right-0 transition-all ease-out duration-100 transform origin-top-right z-20",
         styles: [
           {
             value: menuOpen.value,

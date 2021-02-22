@@ -24,7 +24,7 @@
   import { defineComponent, computed } from "vue";
   import { useStore, } from "vuex";
 
-  import { getUserFullName } from "@/helpers/user";
+  import { getUser, getUserFullName } from "@/helpers/user";
 
   import Dropdown from "@/components/organisms/Dropdown.vue";
 
@@ -46,11 +46,12 @@
     },
     setup() {
       const store = useStore();
+      const user = getUser();
 
       const onSignout = () => store.dispatch("auth/signout");
 
       return {
-        fullName: getUserFullName(),
+        fullName: computed(() => getUserFullName(user?.value)),
         onSignout,
       }
     },

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, computed, ref } from "vue";
+  import { defineComponent, PropType, computed, } from "vue";
   import { propsToClasses, } from "@/helpers/styles";
 
   export type Type = "primary" | "secondary" | "text";
