@@ -50,9 +50,8 @@ export const auth: {
 
         setAuth(auth);
         context.dispatch("session");
-        context.commit("errors/clrError", { 
-          name: "signin" 
-        }, { root: true });
+        router.push("/dashboard");
+        context.commit("errors/clrError", { name: "signin" }, { root: true });
       }).catch((error) => { 
         const res = error?.response;
         const message = res?.data?.message;

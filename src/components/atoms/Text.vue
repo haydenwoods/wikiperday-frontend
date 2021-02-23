@@ -40,6 +40,7 @@
               "primary": "text-text-primary",
               "secondary": "text-text-secondary",
               "tertiary": "text-text-tertiary",
+              "accent": "text-accent-primary",
               "success": "text-accent-green",
               "error": "text-accent-red",
             }

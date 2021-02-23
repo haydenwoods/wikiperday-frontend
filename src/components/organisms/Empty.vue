@@ -1,7 +1,9 @@
 <template>
   <div class="mx-auto w-56 flex flex-col items-center">
     <Icon v-if="icon" :name="icon" size="xxlg" type="secondary" class="mb-2"/>
-  <Text size="lg" align="center" type="secondary">{{ title }}</Text>
+    <Text size="lg" align="center" type="secondary">
+      <slot/>
+    </Text>
   </div>
 </template>
 
@@ -21,7 +23,6 @@
     },
     props: {
       icon: String,
-      title: String,
     },
   });
 </script>

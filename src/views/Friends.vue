@@ -18,7 +18,15 @@
         </div>
         <Container>
           <Friend v-for="user in friends" :key="user._id" :user="user" controls="friend"/>
-          <Empty v-if="!hasFriends" title="Friends will show here. Use Add Friend to find them by email." icon="userGroup"/>
+          <Empty v-if="!hasFriends" icon="userGroup">
+            Friends will show here. <br/> Use 
+            <Button type="text" height="sm" @click="openModal({ name: 'addFriend' })">
+              <Text size="lg" type="accent">
+                Add Friend
+              </Text>
+            </Button> 
+            to find them by email.
+          </Empty>
         </Container>
       </div>
 
@@ -30,7 +38,9 @@
           </div>
           <Container>
             <Friend v-for="user in requests" :key="user._id" :user="user" controls="request"/>
-            <Empty v-if="!hasRequests" title="Friend requests will show here." icon="inbox"/>
+            <Empty v-if="!hasRequests" icon="inbox">
+              Friend requests will <br/> show here.
+            </Empty>
           </Container>
         </div>
 
@@ -42,7 +52,9 @@
           </div>
           <Container>
             <Friend v-for="user in outgoingRequests" :key="user._id" :user="user" controls="outgoingRequest"/>
-            <Empty v-if="!hasOutgoingRequests" title="Your outgoing requests will show here." icon="cloudUpload"/>
+            <Empty v-if="!hasOutgoingRequests" icon="cloudUpload">
+              Outgoing requests will show here.
+            </Empty>
           </Container>
         </div>
       </div>
@@ -65,6 +77,7 @@
   import Friend from "@/components/organisms/Friends/Friend.vue";
   import Empty from "@/components/organisms/Empty.vue";
   import Title from "@/components/atoms/Title.vue";
+  import Text from "@/components/atoms/Text.vue";
   import Spacer from "@/components/atoms/Spacer.vue";
   import Icon from "@/components/atoms/Icon/Icon.vue";
   import Container from "@/components/atoms/Container.vue";
@@ -77,6 +90,7 @@
       Friend,
       Empty,
       Title,
+      Text,
       Spacer,
       Icon,
       Container,

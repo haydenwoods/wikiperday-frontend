@@ -3,7 +3,7 @@
     <div v-for="item in navItems" :key="item.name" class="flex items-center mr-8 last:mr-0 relative">
       <div 
         v-if="item.active" 
-        class="h-10 w-10 bg-accent-secondary absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 rounded-full">
+        class="h-10 w-10 bg-accent-primary absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 rounded-full">
       </div>
       
       <div class="z-10">

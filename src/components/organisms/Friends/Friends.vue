@@ -1,5 +1,5 @@
 <template>
-  <Container v-if="hasFriends">
+  <Container>
     <div class="w-full flex flex-col">
       <Linker to="/friends">
         <Title>
@@ -12,6 +12,9 @@
 
       <div class="flex-row pt-4">
         <Friend v-for="user in friends" :key="user._id" :user="user"/>
+        <Empty v-if="!hasFriends" icon="userGroup">
+          Friends will show here.
+        </Empty>
       </div>
     </div>
   </Container>
@@ -23,6 +26,7 @@
   import { getUser, getUserFriends } from "@/helpers/user";
 
   import Friend from "@/components/organisms/Friends/Friend.vue";
+  import Empty from "@/components/organisms/Empty.vue";
   import Linker from "@/components/atoms/Linker.vue";
   import Button from "@/components/atoms/Button.vue";
   import Container from "@/components/atoms/Container.vue";
@@ -33,6 +37,7 @@
     name: "Friends",
     components: {
       Friend,
+      Empty,
       Linker,
       Button,
       Container,
