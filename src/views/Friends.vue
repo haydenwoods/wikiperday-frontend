@@ -9,7 +9,7 @@
           </div>
 
           <div class="ml-auto">
-            <Button type="primary" @click="openModal('addFriend')">
+            <Button type="primary" @click="openModal({ name: 'addFriend' })">
               <Icon name="plusCircle" size="sm" type="tertiary"/>
               <Spacer vertical multiplier="2"/>
               Add friend
@@ -17,7 +17,8 @@
           </div>
         </div>
         <Container>
-          <Friend v-for="user in friends" :key="user._id" :user="user" controls="manage"/>
+          <Friend v-for="user in friends" :key="user._id" :user="user" controls="friend"/>
+          <Empty v-if="!hasFriends" title="Friends will show here. Use Add Friend to find them by email." icon="userGroup"/>
         </Container>
       </div>
 
@@ -25,10 +26,11 @@
         <div>
           <div class="mb-8">
             <Title>Requests</Title>
-            <Title type="secondary" size="sm">You have {{ totalRequestsCount }} unanswered friend request{{ totalRequestsCount !== 1 ? "s" : "" }}.</Title>
+            <Title type="secondary" size="sm">You have {{ requestsCount }} unanswered friend request{{ requestsCount !== 1 ? "s" : "" }}.</Title>
           </div>
           <Container>
             <Friend v-for="user in requests" :key="user._id" :user="user" controls="request"/>
+            <Empty v-if="!hasRequests" title="Friend requests will show here." icon="inbox"/>
           </Container>
         </div>
 
@@ -40,6 +42,7 @@
           </div>
           <Container>
             <Friend v-for="user in outgoingRequests" :key="user._id" :user="user" controls="outgoingRequest"/>
+            <Empty v-if="!hasOutgoingRequests" title="Your outgoing requests will show here." icon="cloudUpload"/>
           </Container>
         </div>
       </div>
@@ -60,6 +63,7 @@
 
   import Page from "@/components/templates/Page.vue";
   import Friend from "@/components/organisms/Friends/Friend.vue";
+  import Empty from "@/components/organisms/Empty.vue";
   import Title from "@/components/atoms/Title.vue";
   import Spacer from "@/components/atoms/Spacer.vue";
   import Icon from "@/components/atoms/Icon/Icon.vue";
@@ -71,6 +75,7 @@
     components: { 
       Page,
       Friend,
+      Empty,
       Title,
       Spacer,
       Icon,
@@ -83,15 +88,15 @@
 
       const friends = computed(() => getUserFriends(user?.value));
       const friendsCount = computed(() => friends.value?.length);
-      const hasFriends = computed(() => friends.value?.length > 0);
+      const hasFriends = computed(() => friendsCount.value > 0);
 
       const requests = computed(() => getUserRequests(user?.value));
       const requestsCount = computed(() => requests.value?.length);
+      const hasRequests = computed(() => requestsCount.value > 0);
 
       const outgoingRequests = computed(() => getUserOutgoingRequests(user?.value));
-      const outgoingRequestsCount = computed(() => requests.value?.length);
-
-      const totalRequestsCount = computed(() => requestsCount?.value + outgoingRequestsCount?.value);
+      const outgoingRequestsCount = computed(() => outgoingRequests.value?.length);
+      const hasOutgoingRequests = computed(() => outgoingRequestsCount.value > 0);
 
       return {
         friends,
@@ -99,10 +104,11 @@
         hasFriends,
         requests,
         requestsCount,
+        hasRequests,
         outgoingRequests,
         outgoingRequestsCount,
-        totalRequestsCount,
-        openModal: (modalName: string) => store.commit("modals/openModal", modalName),
+        hasOutgoingRequests,
+        openModal: ({ name }: { name: string }) => store.commit("modals/openModal", { name }),
       }
     }
   });

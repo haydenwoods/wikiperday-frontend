@@ -11,15 +11,16 @@ export const modals: {
     openModal: null,
   },  
   mutations: {
-    openModal(state: State, modalName: string) {
-      state.openModal = modalName;
+    openModal(state: State, { name }: { name: string }) {
+      state.openModal = name;
     },
-    toggleModal(state: State, modalName: string) {
-      const isOpen = state.openModal === modalName;
-      state.openModal = isOpen ? null : modalName;
+    toggleModal(state: State, { name }: { name: string }) {
+      const isOpen = state.openModal === name;
+      state.openModal = isOpen ? null : name;
     },
-    closeModal(state: State, modalName?: string) {
-      if (modalName && modalName !== state.openModal) return;
+    closeModal(state: State, params?: { name: string }) {
+      const name = params?.name;
+      if (name && name !== state.openModal) return;
       state.openModal = null;
     },
   },

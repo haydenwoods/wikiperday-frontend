@@ -33,11 +33,16 @@
       Icon,
       Spacer,
     },
-    setup() {
+    setup(props, { emit }) {
       const store = useStore();
 
+      const closeModal = () => {
+        emit("onClose");
+        store.commit("modals/closeModal");
+      }
+
       return {
-        closeModal: () => store.commit("modals/closeModal"),
+        closeModal,
       }
     },
   });

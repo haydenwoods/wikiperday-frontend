@@ -61,7 +61,8 @@
           {
             value: props.size,
             values: {
-              "sm": "text-xl tracking-wide",
+              "xsm": "text-lg tracking-wide leading-snug",
+              "sm": "text-xl tracking-wide leading-snug",
               "md": "text-3xl tracking-wide",
               "lg": "text-4xl",
               "xlg": "text-5xl",

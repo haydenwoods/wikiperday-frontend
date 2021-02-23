@@ -16,10 +16,12 @@
   import chevronDown from "./Icons/chevronDown.vue";
   import chevronRight from "./Icons/chevronRight.vue";
   import chip from "./Icons/chip.vue";
+  import cloudUpload from "./Icons/cloudUpload.vue";
   import cog from "./Icons/cog.vue";
   import dailyread from "./Icons/dailyread.vue";
   import eye from "./Icons/eye.vue";
   import home from "./Icons/home.vue";
+  import inbox from "./Icons/inbox.vue";
   import lock from "./Icons/lock.vue";
   import logout from "./Icons/logout.vue";
   import mail from "./Icons/mail.vue";
@@ -43,10 +45,12 @@
       chevronDown,
       chevronRight,
       chip,
+      cloudUpload,
       cog,
       dailyread,
       eye,
       home,
+      inbox,
       lock,
       logout,
       mail,
@@ -82,8 +86,8 @@
               "sm": "h-5",
               "md": "h-6",
               "lg": "h-7",
-              "xlg": "h-8",
-              "xxlg": "h-12",
+              "xlg": "h-12",
+              "xxlg": "h-14",
             },
           },
           {

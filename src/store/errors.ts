@@ -4,7 +4,7 @@ type State = {
   errors: Record<string, Error>
 }
 
-export const error: {
+export const errors: {
   state: State,
   [key: string]: any
 } = {

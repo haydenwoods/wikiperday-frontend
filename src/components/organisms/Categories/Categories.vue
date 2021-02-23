@@ -9,10 +9,10 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="beaker" type="tertiary" size="xxlg"/>
+                  <Icon name="beaker" type="tertiary" size="xlg"/>
                 </div>
                 <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary">Science</Text>
+                <Text size="lg" type="tertiary" align="center">Science</Text>
               </div>
             </div>
           </AccentBox>
@@ -21,10 +21,10 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="map" type="tertiary" size="xxlg"/>
+                  <Icon name="map" type="tertiary" size="xlg"/>
                 </div>
                 <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary">History</Text>
+                <Text size="lg" type="tertiary" align="center">History</Text>
               </div>
             </div>
           </AccentBox>
@@ -33,10 +33,10 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="musicNote" type="tertiary" size="xxlg"/>
+                  <Icon name="musicNote" type="tertiary" size="xlg"/>
                 </div>
                 <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary">Music</Text>
+                <Text size="lg" type="tertiary" align="center">Music</Text>
               </div>
             </div>
           </AccentBox>
@@ -45,10 +45,10 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="chip" type="tertiary" size="xxlg"/>
+                  <Icon name="chip" type="tertiary" size="xlg"/>
                 </div>
                 <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary">Tech</Text>
+                <Text size="lg" type="tertiary" align="center">Tech</Text>
               </div>
             </div>
           </AccentBox>

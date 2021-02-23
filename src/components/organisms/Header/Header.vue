@@ -2,7 +2,7 @@
   <div class="h-14 border-b border-border-primary border-solid bg-background-primary">
     <div class="h-full flex flex-row px-6 items-center">
       <div class="flex-1">
-        <Icon name="dailyread" size="xlg"/>
+        <Icon name="dailyread" size="lg"/>
       </div>  
 
       <NavBar v-if="isLoggedIn"/>

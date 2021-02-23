@@ -1,7 +1,7 @@
 <template>
-  <Button @click="openModal('signin')" type="text">Sign in</Button>
+  <Button @click="openModal({ name: 'signin' })" type="text">Sign in</Button>
   <Spacer vertical multiplier="6"/>
-  <Button @click="openModal('signup')" >Sign up</Button>
+  <Button @click="openModal({ name: 'signup' })" >Sign up</Button>
 </template>
 
 <script lang="ts">
@@ -21,7 +21,7 @@
       const store = useStore();
 
       return {
-        openModal: (modalName: string) => store.commit("modals/openModal", modalName),
+        openModal: ({ name }: { name: string }) => store.commit("modals/openModal", { name }),
       }
     }
   });

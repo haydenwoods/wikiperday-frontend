@@ -55,11 +55,11 @@
           {
             value: props.size,
             values: {
-              "xs": "text-xs leading-3",
+              "xsm": "text-xs leading-3",
               "sm": "text-sm leading-4",
               "md": "text-base leading-5",
-              "lg": "text-lg leading-7",
-              "xl": "text-xl leading-9",
+              "lg": "text-lg leading-7 leading-snug",
+              "xlg": "text-xl leading-9",
             },
           },
         ],

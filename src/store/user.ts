@@ -17,13 +17,13 @@ export const user = {
         email,
         password,
       }).then((res) => {
-        context.commit("modals/closeModal", "signup", { root: true });
-        context.commit("error/clrError", { name: "signup" }, { root: true });
+        context.commit("modals/closeModal", { name: "signup" }, { root: true });
+        context.commit("errors/clrError", { name: "signup" }, { root: true });
       }).catch((error) => { 
         const res = error?.response;
         const message = res?.data?.message;
         
-        message && context.commit("error/setError", { 
+        message && context.commit("errors/setError", { 
           name: "signup", 
           error: { 
             message,

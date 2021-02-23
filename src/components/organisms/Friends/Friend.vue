@@ -16,18 +16,18 @@
       </Button>
     </div>
 
-    <div class="flex flex-row ml-auto" v-if="controls === 'manage'">
-      <Dropdown type="text">
+    <div class="flex flex-row ml-auto" v-if="controls === 'friend'">
+      <Dropdown type="text" :showArrow="false">
         <Icon name="cog" size="lg"/>
 
         <template v-slot:menu>
           <Menu>
-            <MenuItem>
+            <MenuItem @click="viewFriend">
               <Icon size="sm" name="eye"/>
               <Spacer vertical multiplier="2"/>
               <Text>View</Text>
             </MenuItem>
-            <MenuItem>
+            <MenuItem @click="removeFriend">
               <Icon size="sm" name="trash"/>
               <Spacer vertical multiplier="2"/>
               <Text>Remove</Text>
@@ -35,6 +35,12 @@
           </Menu>
         </template>
       </Dropdown>
+    </div>
+
+    <div class="flex flex-row ml-auto" v-if="controls === 'outgoingRequest'">
+      <Button type="text" @click="cancelRequest">
+        <Icon name="xCircle" size="lg" type="secondary"/>
+      </Button>
     </div>
   </div>
 </template>
@@ -81,8 +87,10 @@
 
       return {
         fullName: computed(() => getUserFullName(props.user)),
-        acceptRequest: () => store.dispatch("friends/accept", { userId: props.user._id }),
-        declineRequest: () => store.dispatch("friends/decline", { userId: props.user._id }),
+        acceptRequest: () => store.dispatch("friends/accept", { id: props.user._id }),
+        declineRequest: () => store.dispatch("friends/decline", { id: props.user._id }),
+        cancelRequest: () => store.dispatch("friends/cancel", { id: props.user._id }),
+        removeFriend: () => store.dispatch("friends/remove", { id: props.user._id }),
       }
     },
   });

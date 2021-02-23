@@ -50,14 +50,14 @@ export const auth: {
 
         setAuth(auth);
         context.dispatch("session");
-        context.commit("error/clrError", { 
+        context.commit("errors/clrError", { 
           name: "signin" 
         }, { root: true });
       }).catch((error) => { 
         const res = error?.response;
         const message = res?.data?.message;
         
-        message && context.commit("error/setError", { 
+        message && context.commit("errors/setError", { 
           name: "signin", 
           error: { 
             message,
@@ -75,7 +75,7 @@ export const auth: {
       .then((res) => {
         const user: User = res?.data?.user;
         context.commit("setUser", { user });
-        context.commit("modals/closeModal", "signin", { root: true });
+        context.commit("modals/closeModal", { name: "signin" }, { root: true });
       }).catch((err) => {
         clrAuth();
         router.push("/");

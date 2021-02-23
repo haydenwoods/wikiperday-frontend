@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import { auth } from "@/store/auth";
 import { modals } from "@/store/modals";
 import { user } from "@/store/user";
-import { error } from "@/store/error";
+import { errors } from "@/store/errors";
 import { friends } from "@/store/friends";
 
 export default new Vuex.Store({
@@ -12,7 +12,7 @@ export default new Vuex.Store({
     auth,
     modals,
     user,
-    error,
+    errors,
     friends,
   },
 });

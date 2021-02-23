@@ -2,7 +2,7 @@
   <Button :type="type" :width="width" :height="height" @click="onClick">
     <slot/>
     
-    <div class="pl-1.5">
+    <div v-if="showArrow" class="pl-1.5">
       <Icon 
         :class="iconClasses"
         name="chevronDown" 
@@ -33,13 +33,17 @@
       type: String as PropType<Type>,
       width: String as PropType<Width>,
       height: String as PropType<Height>,
+      showArrow: {
+        type: Boolean,
+        default: true,
+      },
     },
     setup() {
       const menuOpen = ref(false);
       const onClick = () => menuOpen.value = !menuOpen.value;
 
       const iconClasses = computed(() => propsToClasses({
-        defaults: "transition-transform",
+        defaults: "transition-transform duration-250",
         styles: [
           {
             value: menuOpen.value,
@@ -52,7 +56,7 @@
       }));
 
       const menuClasses = computed(() => propsToClasses({
-        defaults: "absolute top-full right-0 transition-all ease-out duration-100 transform origin-top-right z-20",
+        defaults: "absolute top-full right-0 transition-all ease-out duration-150 transform origin-top-right z-20",
         styles: [
           {
             value: menuOpen.value,

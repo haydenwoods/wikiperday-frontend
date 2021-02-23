@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal @onClose="onClose"> 
     <template v-slot:header>
       <Title align="center">
         Add friend
@@ -18,7 +18,7 @@
             Submit
           </Button>
           <Spacer vertical multiplier="4"/>
-          <Button type="secondary" @click="closeModal">
+          <Button type="secondary" @click="onClose">
             Cancel
           </Button>
         </div>
@@ -62,19 +62,21 @@
     setup() {
       const store = useStore();
 
-      const closeModal = () => store.commit("modals/closeModal");
-
       const formError = ref();
-      const reqError = computed(() => store.state?.error?.errors["friendsRequest"]?.message);
+      const reqError = computed(() => store.state?.errors?.errors["friendsRequest"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
       const onFormSubmit = (formValues: Record<string, string>) => {
         store.dispatch("friends/request", formValues);
-        closeModal();
       }
 
       const onFormError = (error: string) => {
         formError.value = error;
+      }
+
+      const onClose = () => {
+        store.commit("errors/clrError", { name: "friendsRequest" });
+        store.commit("modals/closeModal");
       }
 
       const formValidations = {
@@ -85,8 +87,8 @@
         error,
         onFormSubmit,
         onFormError,
+        onClose,
         formValidations,
-        closeModal, 
       };
     },
   });

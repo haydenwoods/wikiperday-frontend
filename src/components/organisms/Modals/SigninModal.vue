@@ -41,7 +41,7 @@
 
       <Text align="center">
         Don't have an account? 
-        <Button type="text" height="xsm" @click="openModal('signup')">
+        <Button type="text" height="xsm" @click="openModal({ name: 'signup' })">
           <span class="text-accent-primary">
             Sign up.
           </span>
@@ -80,10 +80,10 @@
       const store = useStore();
 
       const formError = ref();
-      const reqError = computed(() => store.state?.error?.errors["signin"]?.message);
+      const reqError = computed(() => store.state?.errors?.errors["signin"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const openModal = (modalName: string) => store.commit("modals/openModal", modalName);
+      const openModal = ({ name }: { name: string }) => store.commit("modals/openModal", { name });
 
       const onFormSubmit = (formValues: Record<string, string>) => {
         formError.value = null;
