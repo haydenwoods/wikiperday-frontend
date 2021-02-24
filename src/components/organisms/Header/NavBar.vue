@@ -29,7 +29,7 @@
     name: string,
     path: string,
     icon: string,
-    active: boolean
+    active: boolean,
   }
 
   export default defineComponent({

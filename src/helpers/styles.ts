@@ -1,11 +1,11 @@
 type Style = {
   value?: string | boolean,
-  values: Record<string, string>
+  values: Record<string, string>,
 }
 
 type ParseStylesProps = {
   defaults?: string,
-  styles?: Array<Style>
+  styles?: Array<Style>,
 }
 
 export const propsToClasses = ({ defaults, styles, }: ParseStylesProps): string => {

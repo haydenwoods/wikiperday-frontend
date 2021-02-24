@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { defineComponent, } from "vue";
-  import { useStore } from "vuex";
+  import { ModalsModule } from "@/store/modules/modals";
 
   import Button from "@/components/atoms/Button.vue";
   import Spacer from "@/components/atoms/Spacer.vue";
@@ -18,10 +18,8 @@
       Spacer,
     },
     setup() {
-      const store = useStore();
-
       return {
-        openModal: ({ name }: { name: string }) => store.commit("modals/openModal", { name }),
+        openModal: ({ name }: { name: string }) => ModalsModule.openModal({ name }),
       }
     }
   });

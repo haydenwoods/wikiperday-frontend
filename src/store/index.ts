@@ -1,18 +1,19 @@
 import Vuex from "vuex";
 
 // Modules
-import { auth } from "@/store/auth";
-import { modals } from "@/store/modals";
-import { user } from "@/store/user";
-import { errors } from "@/store/errors";
-import { friends } from "@/store/friends";
+import { IAuth } from "@/store/modules/auth";
+import { IModals } from "@/store/modules/modals";
+// import { IUser } from "@/store/modules/user";
+import { IErrors } from "@/store/modules/errors";
+// import { IFriends } from "@/store/modules/friends";
 
-export default new Vuex.Store({
-  modules: {
-    auth,
-    modals,
-    user,
-    errors,
-    friends,
-  },
-});
+export interface IRootState {
+  auth: IAuth,
+  modals: IModals,
+  // user: IUser,
+  errors: IErrors,
+  // friends: IFriends,
+}
+
+// Declare empty store first, dynamically register all modules later.
+export default new Vuex.Store<IRootState>({});

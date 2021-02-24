@@ -1,4 +1,7 @@
 module.exports = {
+  transpileDependencies: [
+    'vuex-module-decorators'
+  ],
   chainWebpack: config => {
     config
     .plugin("html")

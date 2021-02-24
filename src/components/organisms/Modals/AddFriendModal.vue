@@ -36,7 +36,9 @@
 
 <script lang="ts">
   import { defineComponent, ref, computed } from "vue";
-  import { useStore } from "vuex";
+  import { ModalsModule } from "@/store/modules/modals";
+  import { FriendsModule } from "@/store/modules/friends";
+  import { ErrorsModule } from "@/store/modules/errors";
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
@@ -60,14 +62,13 @@
       FormController,
     },
     setup() {
-      const store = useStore();
-
       const formError = ref();
-      const reqError = computed(() => store.state?.errors?.errors["friendsRequest"]?.message);
+      const reqError = computed(() => ErrorsModule?.errors["friendsRequest"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const onFormSubmit = (formValues: Record<string, string>) => {
-        store.dispatch("friends/request", formValues);
+      const onFormSubmit = async (formValues: Record<string, string>) => {
+        const { email } = formValues;
+        await FriendsModule.request({ email });
       }
 
       const onFormError = (error: string) => {
@@ -75,8 +76,8 @@
       }
 
       const onClose = () => {
-        store.commit("errors/clrError", { name: "friendsRequest" });
-        store.commit("modals/closeModal");
+        ErrorsModule.clrError({ name: "friendsRequest" });
+        ModalsModule.closeModal();
       }
 
       const formValidations = {

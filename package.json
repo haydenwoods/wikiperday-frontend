@@ -21,7 +21,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",

@@ -64,8 +64,8 @@
 
 <script lang="ts">
   import { defineComponent, computed } from "vue";
-  import { useStore } from "vuex";
-  
+  import { ModalsModule } from "@/store/modules/modals"; 
+
   import { 
     getUser, 
     getUserFriends, 
@@ -97,7 +97,6 @@
       Button,
     },
     setup() {
-      const store = useStore();
       const user = getUser();
 
       const friends = computed(() => getUserFriends(user?.value));
@@ -122,7 +121,7 @@
         outgoingRequests,
         outgoingRequestsCount,
         hasOutgoingRequests,
-        openModal: ({ name }: { name: string }) => store.commit("modals/openModal", { name }),
+        openModal: ({ name }: { name: string }) => ModalsModule.openModal({ name }),
       }
     }
   });

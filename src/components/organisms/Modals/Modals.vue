@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { defineComponent, computed } from "vue";
-  import { useStore, } from "vuex";
+  import { ModalsModule } from "@/store/modules/modals";
 
   import SigninModal from "@/components/organisms/Modals/SigninModal.vue";
   import SignupModal from "@/components/organisms/Modals/SignupModal.vue";
@@ -22,10 +22,8 @@
       AddFriendModal,
     },
     setup() {
-      const store = useStore();
-
       return {
-        openModal: computed(() => store.state.modals.openModal),
+        openModal: computed(() => ModalsModule.currentModal),
       }
     },
   });

@@ -48,7 +48,7 @@
       const user = getUser();
 
       const friends = computed(() => getUserFriends(user?.value));
-      const hasFriends = computed(() => friends.value?.length > 0);
+      const hasFriends = computed(() => friends?.value?.length > 0);
 
       return {
         friends,

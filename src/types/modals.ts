@@ -1,5 +1,5 @@
 export type Modal = {
-  name: string
+  name: string,
 } 
 
 export type Modals = Array<Modal>;

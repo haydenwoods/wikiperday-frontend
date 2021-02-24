@@ -8,6 +8,9 @@
 <script lang="ts">
   import { defineComponent, computed } from "vue";
   import { useStore, } from "vuex";
+  import { getModule } from "vuex-module-decorators";
+
+  import Auth from "@/store/modules/auth";
   
   import { DEFAULT_THEME } from "@/theme";
   import { setTheme } from "@/theme/utils";
@@ -23,13 +26,10 @@
     },
     setup() {
       const store = useStore();
+      const authModule = getModule(Auth, store);
 
+      authModule.session();
       setTheme(DEFAULT_THEME);
-      store.dispatch("auth/session");
-
-      return {
-        openModal: computed(() => store.state.modals.openModal),
-      }
     },
   });
 </script>

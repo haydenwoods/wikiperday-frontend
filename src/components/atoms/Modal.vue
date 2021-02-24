@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import { defineComponent, } from "vue";
-  import { useStore } from "vuex";
+  import { ModalsModule } from "@/store/modules/modals";
 
   import Button from "@/components/atoms/Button.vue";
   import Icon from "@/components/atoms/Icon/Icon.vue";
@@ -34,11 +34,9 @@
       Spacer,
     },
     setup(props, { emit }) {
-      const store = useStore();
-
       const closeModal = () => {
         emit("onClose");
-        store.commit("modals/closeModal");
+        ModalsModule.closeModal();
       }
 
       return {

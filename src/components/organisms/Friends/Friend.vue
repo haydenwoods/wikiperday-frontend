@@ -48,6 +48,9 @@
 <script lang="ts">
   import { defineComponent, PropType, computed } from "vue";
   import { useStore } from "vuex";
+  import { getModule } from "vuex-module-decorators";
+
+  import Friends from "@/store/modules/friends";
  
   import { User } from "@/types/user";
   import { getUserFullName } from "@/helpers/user";
@@ -84,13 +87,14 @@
     },
     setup(props) {
       const store = useStore();
+      const friendsModule = getModule(Friends, store);
 
       return {
         fullName: computed(() => getUserFullName(props.user)),
-        acceptRequest: () => store.dispatch("friends/accept", { id: props.user._id }),
-        declineRequest: () => store.dispatch("friends/decline", { id: props.user._id }),
-        cancelRequest: () => store.dispatch("friends/cancel", { id: props.user._id }),
-        removeFriend: () => store.dispatch("friends/remove", { id: props.user._id }),
+        acceptRequest: () => friendsModule.accept({ id: props.user._id }),
+        declineRequest: () => friendsModule.decline({ id: props.user._id }),
+        cancelRequest: () => friendsModule.cancel({ id: props.user._id }),
+        removeFriend: () => friendsModule.remove({ id: props.user._id }),
       }
     },
   });

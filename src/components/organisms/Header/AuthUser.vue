@@ -22,7 +22,7 @@
 
 <script lang="ts">
   import { defineComponent, computed } from "vue";
-  import { useStore, } from "vuex";
+  import { AuthModule } from "@/store/modules/auth";
 
   import { getUser, getUserFullName } from "@/helpers/user";
 
@@ -45,14 +45,11 @@
       Spacer,
     },
     setup() {
-      const store = useStore();
       const user = getUser();
-
-      const onSignout = () => store.dispatch("auth/signout");
 
       return {
         fullName: computed(() => getUserFullName(user?.value)),
-        onSignout,
+        onSignout: () => AuthModule.signout(),
       }
     },
   });

@@ -72,7 +72,9 @@
 
 <script lang="ts">
   import { defineComponent, ref, computed } from "vue";
-  import { useStore } from "vuex";
+  import { ModalsModule } from "@/store/modules/modals";
+  import { UserModule } from "@/store/modules/user";
+  import { ErrorsModule } from "@/store/modules/errors";
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
@@ -96,17 +98,15 @@
       FormController,
     },
     setup() {
-      const store = useStore();
-
       const formError = ref();
-      const reqError = computed(() => store.state?.errors?.errors["signup"]?.message);
+      const reqError = computed(() => ErrorsModule?.errors["signup"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const openModal = ({ name }: { name: string }) => store.commit("modals/openModal", { name });
+      const openModal = ({ name }: { name: string }) => ModalsModule.openModal({ name });
 
-      const onFormSubmit = (formValues: Record<string, string>) => {
+      const onFormSubmit = ({ firstName, lastName, email, password }: Record<string, string>) => {
         formError.value = null;
-        store.dispatch("user/signup", formValues);
+        UserModule.signup({ firstName, lastName, email, password });
       }
 
       const onFormError = (error: string) => {

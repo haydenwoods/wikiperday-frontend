@@ -17,7 +17,7 @@ module.exports = {
     "@typescript-eslint/member-delimiter-style": ["error", {
       multiline: {
         delimiter: "comma",
-        requireLast: false,
+        requireLast: true,
       },
       singleline: {
         delimiter: "comma",
@@ -25,6 +25,7 @@ module.exports = {
       },
     }],
     "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
     "vue/no-unused-components": 0,
   }
 }
