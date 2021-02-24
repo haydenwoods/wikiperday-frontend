@@ -10,9 +10,17 @@
       />
     </div>
 
-    <div :class="menuClasses">
-      <slot name="menu"/>
-    </div>
+    <transition
+      class="origin-top-right transition-opacity-transform duration-150"
+      enter-from-class="opacity-0 transform scale-50"
+      enter-to-class="opacity-100 transform scale-100"
+      leave-from-class="opacity-100 transform scale-100"
+      leave-to-class="opacity-0 transform scale-50"
+    >
+      <div v-if="menuOpen" class="absolute top-full right-0 z-20">
+        <slot name="menu"/>
+      </div>
+    </transition>
   </Button>
 </template>
 
@@ -56,7 +64,6 @@
       }));
 
       const menuClasses = computed(() => propsToClasses({
-        defaults: "absolute top-full right-0 transition-all ease-out duration-150 transform origin-top-right z-20",
         styles: [
           {
             value: menuOpen.value,
