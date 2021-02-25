@@ -9,7 +9,7 @@
           </div>
 
           <div class="ml-auto">
-            <Button type="primary" @click="openModal({ name: 'addFriend' })">
+            <Button type="primary" @click="openModal({ name: 'AddFriendModal' })">
               <Icon name="plusCircle" size="sm" type="tertiary"/>
               <Spacer vertical multiplier="2"/>
               Add friend
@@ -20,7 +20,7 @@
           <Friend v-for="user in friends" :key="user._id" :user="user" controls="friend"/>
           <Empty v-if="!hasFriends" icon="userGroup">
             Friends will show here. <br/> Use 
-            <Button type="text" height="sm" @click="openModal({ name: 'addFriend' })">
+            <Button type="text" height="sm" @click="openModal({ name: 'AddFriendModal' })">
               <Text size="lg" type="accent">
                 Add Friend
               </Text>

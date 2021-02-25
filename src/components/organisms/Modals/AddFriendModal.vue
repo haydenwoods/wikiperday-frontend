@@ -66,8 +66,8 @@
       const reqError = computed(() => ErrorsModule?.errors["friendsRequest"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const onFormSubmit = async (formValues: Record<string, string>) => {
-        const { email } = formValues;
+      const onFormSubmit = async ({ values }: { values: Record<string, string> }) => {
+        const { email } = values;
         await FriendsModule.request({ email });
       }
 

@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { defineComponent, PropType, ref } from "vue";
-  import { ValidationTest } from "@/helpers/validation/types";
+  import { ValidationTest, FormValue } from "@/helpers/validation/types";
   import { validateFields, findError } from "@/helpers/validation/utils";
 
   export default defineComponent({
@@ -27,9 +27,12 @@
 
         const elements = form?.elements;
 
-        const values: Record<string, string> = {};
+        const values: Record<string, FormValue> = {};
         elements.forEach((el: any) => {
-          values[el?.name as string] = el?.value;
+          values[el?.name as string] = { 
+            display: el?.placeholder || el?.name,
+            value: el?.value,
+          }
         });
 
         return values;
@@ -52,7 +55,16 @@
           }
         }
 
-        emit("onSubmit", formValues); 
+        const values: Record<string, string> = {}
+        Object.keys(formValues || {}).forEach(fieldName => {
+          const formValue = formValues?.[fieldName];
+          const value = formValue?.value;
+          if (value) {
+            values[fieldName] = value;
+          }
+        });
+
+        emit("onSubmit", { values, formValues }); 
       }
 
       return {

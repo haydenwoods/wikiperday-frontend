@@ -1,7 +1,7 @@
 <template>
-  <Button @click="openModal({ name: 'signin' })" type="text">Sign in</Button>
+  <Button @click="openModal({ name: 'SigninModal' })" type="text">Sign in</Button>
   <Spacer vertical multiplier="6"/>
-  <Button @click="openModal({ name: 'signup' })" >Sign up</Button>
+  <Button @click="openModal({ name: 'SignupModal' })" >Sign up</Button>
 </template>
 
 <script lang="ts">

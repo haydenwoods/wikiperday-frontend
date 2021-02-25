@@ -60,7 +60,7 @@
 
       <Text align="center">
         Already have an account? 
-        <Button type="text" height="xsm" @click="openModal({ name: 'signin' })">
+        <Button type="text" height="xsm" @click="openModal({ name: 'SigninModal' })">
           <span class="text-accent-primary">
             Sign in.
           </span>
@@ -104,7 +104,8 @@
 
       const openModal = ({ name }: { name: string }) => ModalsModule.openModal({ name });
 
-      const onFormSubmit = ({ firstName, lastName, email, password }: Record<string, string>) => {
+      const onFormSubmit = ({ values }: { values: Record<string, string> }) => {
+        const { firstName, lastName, email, password } = values;
         formError.value = null;
         UserModule.signup({ firstName, lastName, email, password });
       }

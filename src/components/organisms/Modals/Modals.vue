@@ -1,8 +1,6 @@
 <template>
-  <div v-if="openModal" class="min-h-screen w-screen absolute top-0 left-0 bg-black bg-opacity-40 flex justify-center items-center py-8 z-50">
-    <SigninModal v-if="openModal === 'signin'"/>
-    <SignupModal v-if="openModal === 'signup'"/>
-    <AddFriendModal v-if="openModal === 'addFriend'"/>
+  <div v-if="currentModal" class="min-h-screen w-screen absolute top-0 left-0 bg-black bg-opacity-40 flex justify-center items-center py-8 z-50">
+    <component :is="currentModal"></component>
   </div>
 </template>
 
@@ -21,10 +19,8 @@
       SignupModal,
       AddFriendModal,
     },
-    setup() {
-      return {
-        openModal: computed(() => ModalsModule.currentModal),
-      }
-    },
+    setup: () => ({
+      currentModal: computed(() => ModalsModule.currentModal),
+    }),
   });
 </script>

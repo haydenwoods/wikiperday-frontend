@@ -4,7 +4,6 @@ const testRequired = ({ value }: ValidationProps): boolean => {
   if (value) {
     return true;
   }
-
   return false;
 }
 
