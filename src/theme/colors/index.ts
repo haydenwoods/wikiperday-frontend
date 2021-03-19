@@ -4,10 +4,10 @@
 
 export const COLORS = {
   // White
-  "white": "#FFFFFF",
+  white: "#FFFFFF",
 
   // Black
-  "black": "#000000",
+  black: "#000000",
 
   // Grey
   "grey-50": "#F9FAFB",
@@ -26,13 +26,13 @@ export const COLORS = {
   "blue-300": "#5393ff",
   "blue-500": "#2979ff",
 
-  // Orange 
+  // Orange
   "orange-300": "#ffac33",
 
-  // Purple 
+  // Purple
   "purple-300": "#af52bf",
 
-  // Red 
+  // Red
   "red-300": "#ff4569",
 
   // Green

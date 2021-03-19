@@ -1,7 +1,7 @@
 <template>
-  <Container>
+  <wd-container>
     <div class="w-full flex flex-col">
-      <Title>Categories</Title>
+      <wd-title>Categories</wd-title>
 
       <div class="flex items-center justify-center">
         <div class="w-64 grid grid-cols-2 gap-7 pt-6">
@@ -9,10 +9,12 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="beaker" type="tertiary" size="xlg"/>
+                  <wd-icon name="beaker" type="tertiary" size="xlg" />
                 </div>
-                <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary" align="center">Science</Text>
+                <wd-spacer size="0.5" />
+                <wd-text size="lg" type="tertiary" align="center"
+                  >Science</wd-text
+                >
               </div>
             </div>
           </AccentBox>
@@ -21,10 +23,12 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="map" type="tertiary" size="xlg"/>
+                  <wd-icon name="paperMap" type="tertiary" size="xlg" />
                 </div>
-                <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary" align="center">History</Text>
+                <wd-spacer size="0.5" />
+                <wd-text size="lg" type="tertiary" align="center"
+                  >History</wd-text
+                >
               </div>
             </div>
           </AccentBox>
@@ -33,10 +37,12 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="musicNote" type="tertiary" size="xlg"/>
+                  <wd-icon name="musicNote" type="tertiary" size="xlg" />
                 </div>
-                <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary" align="center">Music</Text>
+                <wd-spacer size="0.5" />
+                <wd-text size="lg" type="tertiary" align="center"
+                  >Music</wd-text
+                >
               </div>
             </div>
           </AccentBox>
@@ -45,37 +51,27 @@
             <div class="flex items-center justify-center h-full">
               <div>
                 <div class="flex justify-center">
-                  <Icon name="chip" type="tertiary" size="xlg"/>
+                  <wd-icon name="chip" type="tertiary" size="xlg" />
                 </div>
-                <Spacer horizontal multiplier="0.5"></Spacer>
-                <Text size="lg" type="tertiary" align="center">Tech</Text>
+                <wd-spacer size="0.5" />
+                <wd-text size="lg" type="tertiary" align="center">Tech</wd-text>
               </div>
             </div>
           </AccentBox>
         </div>
       </div>
     </div>
-  </Container>
+  </wd-container>
 </template>
 
 <script>
-  import { defineComponent, } from "vue";
+  import { defineComponent } from "vue";
 
-  import Container from "@/components/atoms/Container.vue";
-  import Icon from "@/components/atoms/Icon/Icon.vue";
-  import Title from "@/components/atoms/Title.vue";
-  import Text from "@/components/atoms/Text.vue";
-  import Spacer from "@/components/atoms/Spacer.vue";
   import AccentBox from "@/components/organisms/AccentBox.vue";
 
   export default defineComponent({
     name: "Categories",
-    components: { 
-      Container,
-      Icon,
-      Title,
-      Text,
-      Spacer,
+    components: {
       AccentBox,
     },
   });

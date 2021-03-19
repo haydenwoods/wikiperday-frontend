@@ -1,7 +1,7 @@
-import { ref, } from "vue";
+import { ref } from "vue";
 
 import { dark, light } from "./themes";
-import { Themes, ThemeName, } from "./types";
+import { Themes, ThemeName } from "./types";
 
 export const DEFAULT_THEME: ThemeName = "dark";
 export const THEME_REF = ref();

@@ -1,5 +1,5 @@
-import { Theme, } from "../types";
-import { COLORS, } from "../colors";
+import { Theme } from "../types";
+import { COLORS } from "../colors";
 
 export const base: Theme = {
   // Accents
@@ -14,7 +14,7 @@ export const base: Theme = {
   "accent-green": COLORS["green-300"],
   "accent-orange": COLORS["orange-300"],
   "accent-purple": COLORS["purple-300"],
-  
+
   // Backgrounds
   "background-primary": COLORS["grey-50"],
   "background-secondary": COLORS["white"],

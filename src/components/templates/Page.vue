@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <Header/>
+  <div class="min-h-screen flex flex-col" name="page">
+    <Header />
 
     <div class="flex-grow w-320 py-6 mx-0 md:mx-auto">
       <slot />
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, } from "vue";
+  import { defineComponent } from "vue";
 
   import Header from "@/components/organisms/Header/Header.vue";
 

@@ -5,10 +5,10 @@ const testRequired = ({ value }: ValidationProps): boolean => {
     return true;
   }
   return false;
-}
+};
 
 export const required: ValidationTest = {
   name: "required",
   test: testRequired,
   errorMessage: "is a required field.",
-}
+};

@@ -2,20 +2,20 @@
   <Dropdown type="text">
     {{ fullName }}
 
-    <template v-slot:menu>
-      <Menu>
-        <MenuItem>
-          <Icon size="sm" name="cog"></Icon>
-          <Spacer vertical multiplier="2"/>
-          <Text>Account settings</Text>
-        </MenuItem>
+    <template #menu>
+      <wd-menu>
+        <wd-menu-item>
+          <wd-icon size="sm" name="cog" />
+          <wd-spacer size="2" />
+          <wd-text>Account settings</wd-text>
+        </wd-menu-item>
 
-        <MenuItem @click="onSignout">
-          <Icon size="sm" name="logout"></Icon>
-          <Spacer vertical multiplier="2"/>
-          <Text>Sign out</Text>
-        </MenuItem>
-      </Menu>
+        <wd-menu-item @click="onSignout">
+          <wd-icon size="sm" name="logout" />
+          <wd-spacer size="2" />
+          <wd-text>Sign out</wd-text>
+        </wd-menu-item>
+      </wd-menu>
     </template>
   </Dropdown>
 </template>
@@ -24,33 +24,22 @@
   import { defineComponent, computed } from "vue";
   import { AuthModule } from "@/store/modules/auth";
 
-  import { getUser, getUserFullName } from "@/helpers/user";
+  import { getUserFullName } from "@/helpers/user";
 
   import Dropdown from "@/components/organisms/Dropdown.vue";
-
-  import Menu from "@/components/atoms/Menu.vue";
-  import MenuItem from "@/components/atoms/MenuItem.vue";
-  import Text from "@/components/atoms/Text.vue";
-  import Icon from "@/components/atoms/Icon/Icon.vue";
-  import Spacer from "@/components/atoms/Spacer.vue";
 
   export default defineComponent({
     name: "AuthUser",
     components: {
       Dropdown,
-      Menu,
-      MenuItem,
-      Text,
-      Icon,
-      Spacer,
     },
     setup() {
-      const user = getUser();
+      const user = computed(() => AuthModule.getUser);
 
       return {
         fullName: computed(() => getUserFullName(user?.value)),
         onSignout: () => AuthModule.signout(),
-      }
+      };
     },
   });
 </script>

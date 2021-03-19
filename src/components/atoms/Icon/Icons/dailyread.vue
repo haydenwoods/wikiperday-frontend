@@ -1,7 +1,0 @@
-<template>
-  <svg viewBox="0 0 44 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="1" width="22" height="22" rx="5" fill="#F73378" stroke="#374151" stroke-width="2"/>
-    <rect x="11" y="1" width="22" height="22" rx="5" fill="#00E676" stroke="#374151" stroke-width="2"/>
-    <rect x="21" y="1" width="22" height="22" rx="5" fill="#2979FF" stroke="#374151" stroke-width="2"/>
-  </svg>
-</template>

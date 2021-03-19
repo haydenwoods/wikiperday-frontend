@@ -1,73 +1,63 @@
 <template>
-  <Modal>
-    <template v-slot:header>
-      <Title align="center">
-        Sign up
-      </Title>
-      <Spacer horizontal multiplier="1"/>
-      <Text align="center" type="secondary">
+  <wd-modal>
+    <template #header>
+      <wd-title align="center"> Sign up </wd-title>
+      <wd-spacer side="ver" size="1" />
+      <wd-text align="center" type="secondary">
         Sign up for a new account here.
-      </Text>
+      </wd-text>
     </template>
 
-    <template v-slot:content>
-      <FormController :validations="formValidations" @onSubmit="onFormSubmit" @onError="onFormError">
-        <TextInput
-          name="firstName"
-          placeholder="First name"
-          icon="userCircle"
-        />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
-          name="lastName"
-          placeholder="Last name"
-          icon="userGroup"
-        />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
-          name="email"
-          placeholder="Email"
-          icon="mail"
-        />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
+    <template #content>
+      <wd-form
+        :validations="formValidations"
+        @onSubmit="onFormSubmit"
+        @onError="onFormError"
+      >
+        <wd-input name="firstName" placeholder="First name" icon="userCircle" />
+        <wd-spacer side="ver" size="4" />
+        <wd-input name="lastName" placeholder="Last name" icon="userGroup" />
+        <wd-spacer side="ver" size="4" />
+        <wd-input name="email" placeholder="Email" icon="mail" />
+        <wd-spacer side="ver" size="4" />
+        <wd-input
           name="password"
           placeholder="Password"
           type="password"
           icon="lock"
         />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
+        <wd-spacer side="ver" size="4" />
+        <wd-input
           name="confirmPassword"
           placeholder="Confirm password"
           type="password"
           icon="lock"
         />
-        <Spacer horizontal multiplier="8"/>
-        <Button width="full" height="lg">
-          Sign up
-        </Button>
-      </FormController>
+        <wd-spacer side="ver" size="8" />
+        <wd-button width="full" height="lg"> Sign up </wd-button>
+      </wd-form>
 
       <template v-if="error">
-        <Spacer horizontal multiplier="4"/>
-        <Text v-if="error" type="error" align="center">
+        <wd-spacer side="ver" size="4" />
+        <wd-text v-if="error" type="error" align="center">
           {{ error }}
-        </Text>
+        </wd-text>
       </template>
 
-      <Spacer horizontal multiplier="6"/>
+      <wd-spacer side="ver" size="6" />
 
-      <Text align="center">
-        Already have an account? 
-        <Button type="text" height="xsm" @click="openModal({ name: 'SigninModal' })">
-          <span class="text-accent-primary">
-            Sign in.
-          </span>
-        </Button>
-      </Text>
+      <wd-text align="center">
+        Already have an account?
+        <wd-button
+          type="text"
+          height="xsm"
+          @click="openModal({ name: 'SigninModal' })"
+        >
+          <span class="text-accent-primary"> Sign in. </span>
+        </wd-button>
+      </wd-text>
     </template>
-  </Modal>
+  </wd-modal>
 </template>
 
 <script lang="ts">
@@ -78,49 +68,33 @@
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
-  import Modal from "@/components/atoms/Modal.vue";
-  import Title from "@/components/atoms/Title.vue";
-  import Text from "@/components/atoms/Text.vue";
-  import Spacer from "@/components/atoms/Spacer.vue";
-  import TextInput from "@/components/atoms/TextInput.vue";
-  import Button from "@/components/atoms/Button.vue";
-  import FormController from "@/components/atoms/FormController.vue";
-
   export default defineComponent({
     name: "SignupModal",
-    components: {
-      Modal,
-      Title,
-      Text,
-      Spacer,
-      TextInput,
-      Button,
-      FormController,
-    },
     setup() {
       const formError = ref();
       const reqError = computed(() => ErrorsModule?.errors["signup"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const openModal = ({ name }: { name: string }) => ModalsModule.openModal({ name });
+      const openModal = ({ name }: { name: string }) =>
+        ModalsModule.openModal({ name });
 
       const onFormSubmit = ({ values }: { values: Record<string, string> }) => {
         const { firstName, lastName, email, password } = values;
         formError.value = null;
         UserModule.signup({ firstName, lastName, email, password });
-      }
+      };
 
       const onFormError = (error: string) => {
         formError.value = error;
-      }
+      };
 
       const formValidations = {
-        "firstName": [VALIDATIONS.REQUIRED],
-        "lastName": [VALIDATIONS.REQUIRED],
-        "email": [VALIDATIONS.REQUIRED],
-        "password": [VALIDATIONS.REQUIRED],
-        "confirmPassword": [VALIDATIONS.REQUIRED],
-      }
+        firstName: [VALIDATIONS.REQUIRED],
+        lastName: [VALIDATIONS.REQUIRED],
+        email: [VALIDATIONS.REQUIRED, VALIDATIONS.EMAIL],
+        password: [VALIDATIONS.REQUIRED],
+        confirmPassword: [VALIDATIONS.REQUIRED],
+      };
 
       return {
         error,

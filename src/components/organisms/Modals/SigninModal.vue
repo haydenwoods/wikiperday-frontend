@@ -1,54 +1,52 @@
 <template>
-  <Modal>
-    <template v-slot:header>
-      <Title align="center">
-        Sign in
-      </Title>
-      <Spacer horizontal multiplier="1"/>
-      <Text align="center" type="secondary">
+  <wd-modal>
+    <template #header>
+      <wd-title align="center"> Sign in </wd-title>
+      <wd-spacer side="ver" size="1" />
+      <wd-text align="center" type="secondary">
         Sign in to your account here.
-      </Text>
+      </wd-text>
     </template>
 
-    <template v-slot:content>
-      <FormController :validations="formValidations" @onSubmit="onFormSubmit" @onError="onFormError">
-        <TextInput
-          name="email"
-          placeholder="Email"
-          icon="mail"
-        />
-        <Spacer horizontal multiplier="4"/>
-        <TextInput
+    <template #content>
+      <wd-form
+        :validations="formValidations"
+        @onSubmit="onFormSubmit"
+        @onError="onFormError"
+      >
+        <wd-input name="email" placeholder="Email" icon="mail" />
+        <wd-spacer side="ver" size="4" />
+        <wd-input
           name="password"
           placeholder="Password"
           type="password"
           icon="lock"
         />
-        <Spacer horizontal multiplier="8"/>
-        <Button width="full" height="lg">
-          Sign in
-        </Button>
-      </FormController>
-      
-      <template v-if="error">
-        <Spacer horizontal multiplier="4"/>
-        <Text type="error" align="center">
-          {{ error }}
-        </Text>
-      </template>
-      
-      <Spacer horizontal multiplier="6"/>
+        <wd-spacer side="ver" size="8" />
+        <wd-button width="full" height="lg"> Sign in </wd-button>
+      </wd-form>
 
-      <Text align="center">
-        Don't have an account? 
-        <Button type="text" height="xsm" @click="openModal({ name: 'SignupModal' })">
-          <span class="text-accent-primary">
-            Sign up.
-          </span>
-        </Button>
-      </Text>
+      <template v-if="error">
+        <wd-spacer size="4" />
+        <wd-text type="error" align="center">
+          {{ error }}
+        </wd-text>
+      </template>
+
+      <wd-spacer side="ver" size="6" />
+
+      <wd-text align="center">
+        Don't have an account?
+        <wd-button
+          type="text"
+          height="xsm"
+          @click="openModal({ name: 'SignupModal' })"
+        >
+          <span class="text-accent-primary"> Sign up. </span>
+        </wd-button>
+      </wd-text>
     </template>
-  </Modal>
+  </wd-modal>
 </template>
 
 <script lang="ts">
@@ -59,46 +57,30 @@
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
-  import Modal from "@/components/atoms/Modal.vue";
-  import Title from "@/components/atoms/Title.vue";
-  import Text from "@/components/atoms/Text.vue";
-  import Spacer from "@/components/atoms/Spacer.vue";
-  import TextInput from "@/components/atoms/TextInput.vue";
-  import Button from "@/components/atoms/Button.vue";
-  import FormController from "@/components/atoms/FormController.vue";
-
   export default defineComponent({
     name: "SigninModal",
-    components: {
-      Modal,
-      Title,
-      Text,
-      Spacer,
-      TextInput,
-      Button,
-      FormController,
-    },
     setup() {
       const formError = ref();
       const reqError = computed(() => ErrorsModule.errors["signin"]?.message);
       const error = computed(() => formError.value || reqError.value);
 
-      const openModal = ({ name }: { name: string }) => ModalsModule.openModal({ name });
+      const openModal = ({ name }: { name: string }) =>
+        ModalsModule.openModal({ name });
 
       const onFormSubmit = ({ values }: { values: Record<string, string> }) => {
         const { email, password } = values;
         formError.value = null;
         AuthModule.signin({ email, password });
-      }
+      };
 
       const onFormError = (error: string) => {
         formError.value = error;
-      }
+      };
 
       const formValidations = {
-        "email": [VALIDATIONS.REQUIRED],
-        "password": [VALIDATIONS.REQUIRED],
-      }
+        email: [VALIDATIONS.REQUIRED, VALIDATIONS.EMAIL],
+        password: [VALIDATIONS.REQUIRED],
+      };
 
       return {
         error,

@@ -1,11 +1,12 @@
 <template>
-  <Button :type="type" :width="width" :height="height" @click="onClick">
-    <slot/>
-    
+  <wd-button :type="type" :width="width" :height="height" @click="onClick">
+    <slot />
+
     <div v-if="showArrow" class="pl-1.5">
-      <Icon 
+      <wd-icon
+        class="transition-transform duration-250"
         :class="iconClasses"
-        name="chevronDown" 
+        name="chevronDown"
         size="xsm"
       />
     </div>
@@ -18,25 +19,20 @@
       leave-to-class="opacity-0 transform scale-50"
     >
       <div v-if="menuOpen" class="absolute top-full right-0 z-20">
-        <slot name="menu"/>
+        <slot name="menu" />
       </div>
     </transition>
-  </Button>
+  </wd-button>
 </template>
 
 <script lang="ts">
   import { defineComponent, PropType, ref, computed } from "vue";
-  import { propsToClasses, } from "@/helpers/styles";
+  import { propsToClasses } from "@/helpers/styles";
 
-  import Button, { Type, Width, Height, } from "@/components/atoms/Button.vue";
-  import Icon from "@/components/atoms/Icon/Icon.vue";
+  import { Type, Width, Height } from "@/components/atoms/wdButton.vue";
 
   export default defineComponent({
     name: "Dropdown",
-    components: {
-      Button,
-      Icon,
-    },
     props: {
       type: String as PropType<Type>,
       width: String as PropType<Width>,
@@ -48,39 +44,38 @@
     },
     setup() {
       const menuOpen = ref(false);
-      const onClick = () => menuOpen.value = !menuOpen.value;
+      const onClick = () => (menuOpen.value = !menuOpen.value);
 
-      const iconClasses = computed(() => propsToClasses({
-        defaults: "transition-transform duration-250",
-        styles: [
+      const iconClasses = computed(() =>
+        propsToClasses([
           {
             value: menuOpen.value,
             values: {
-              "true": "transform rotate-180",
-              "false": "transform rotate-0",
-            }
+              true: "transform rotate-180",
+              false: "transform rotate-0",
+            },
           },
-        ],
-      }));
+        ])
+      );
 
-      const menuClasses = computed(() => propsToClasses({
-        styles: [
+      const menuClasses = computed(() =>
+        propsToClasses([
           {
             value: menuOpen.value,
             values: {
-              "true": "opacity-100 scale-100",
-              "false": "opacity-0 pointer-events-none select-none scale-50",
-            }
+              true: "opacity-100 scale-100",
+              false: "opacity-0 pointer-events-none select-none scale-50",
+            },
           },
-        ],
-      }));
+        ])
+      );
 
       return {
         menuOpen,
         onClick,
         iconClasses,
         menuClasses,
-      }
+      };
     },
   });
 </script>

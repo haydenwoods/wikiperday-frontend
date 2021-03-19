@@ -1,25 +1,16 @@
-type Style = {
-  value?: string | boolean,
-  values: Record<string, string>,
-}
+import { Style } from "@/types/styles";
 
-type ParseStylesProps = {
-  defaults?: string,
-  styles?: Array<Style>,
-}
+export const propsToClasses = (styles: Style[]): string => {
+  return (styles || [])
+    .reduce((classes: string, style: Style): string => {
+      const { value, defaultValue, values } = style;
 
-export const propsToClasses = ({ defaults, styles, }: ParseStylesProps): string => {
-  return (styles || []).reduce((classes: string, style: Style): string => {
-    const { 
-      value, 
-      values, 
-    } = style;
+      let appendClass = defaultValue;
+      if (value !== null && value !== undefined) {
+        appendClass = values[value?.toString()];
+      }
 
-    if (value !== undefined && value !== "") {
-      const style: string = values[value?.toString()];
-      return style ? `${classes} ${style}` : classes;
-    }
-
-    return classes;
-  }, defaults || "").trim();
-} 
+      return appendClass ? `${classes} ${appendClass}` : classes;
+    }, "")
+    .trim();
+};

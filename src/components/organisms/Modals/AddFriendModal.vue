@@ -1,37 +1,31 @@
 <template>
-  <Modal @onClose="onClose"> 
-    <template v-slot:header>
-      <Title align="center">
-        Add friend
-      </Title>
+  <wd-modal @onClose="onClose">
+    <template #header>
+      <wd-title align="center"> Add friend </wd-title>
     </template>
 
-    <template v-slot:content>
-      <FormController :validations="formValidations" @onSubmit="onFormSubmit" @onError="onFormError">
-        <TextInput
-          name="email"
-          placeholder="Email"
-          icon="mail"
-        />
+    <template #content>
+      <wd-form
+        :validations="formValidations"
+        @onSubmit="onFormSubmit"
+        @onError="onFormError"
+      >
+        <wd-input name="email" placeholder="Email" icon="mail" />
         <div class="flex flex-row-reverse justify-center pt-8">
-          <Button>
-            Submit
-          </Button>
-          <Spacer vertical multiplier="4"/>
-          <Button type="secondary" @click="onClose">
-            Cancel
-          </Button>
+          <wd-button> Submit </wd-button>
+          <wd-spacer size="4" />
+          <wd-button type="secondary" @click="onClose"> Cancel </wd-button>
         </div>
-      </FormController>
+      </wd-form>
 
       <template v-if="error">
-        <Spacer horizontal multiplier="4"/>
-        <Text type="error" align="center">
+        <wd-spacer side="ver" size="4" />
+        <wd-text type="error" align="center">
           {{ error }}
-        </Text>
+        </wd-text>
       </template>
     </template>
-  </Modal>
+  </wd-modal>
 </template>
 
 <script lang="ts">
@@ -42,47 +36,36 @@
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
-  import Modal from "@/components/atoms/Modal.vue";
-  import Title from "@/components/atoms/Title.vue";
-  import Text from "@/components/atoms/Text.vue";
-  import Spacer from "@/components/atoms/Spacer.vue";
-  import TextInput from "@/components/atoms/TextInput.vue";
-  import Button from "@/components/atoms/Button.vue";
-  import FormController from "@/components/atoms/FormController.vue";
-
   export default defineComponent({
     name: "SigninModal",
-    components: {
-      Modal,
-      Title,
-      Text,
-      Spacer,
-      TextInput,
-      Button,
-      FormController,
-    },
     setup() {
       const formError = ref();
-      const reqError = computed(() => ErrorsModule?.errors["friendsRequest"]?.message);
+      const reqError = computed(
+        () => ErrorsModule?.errors["friendsRequest"]?.message
+      );
       const error = computed(() => formError.value || reqError.value);
 
-      const onFormSubmit = async ({ values }: { values: Record<string, string> }) => {
+      const onFormSubmit = async ({
+        values,
+      }: {
+        values: Record<string, string>;
+      }) => {
         const { email } = values;
         await FriendsModule.request({ email });
-      }
+      };
 
       const onFormError = (error: string) => {
         formError.value = error;
-      }
+      };
 
       const onClose = () => {
         ErrorsModule.clrError({ name: "friendsRequest" });
         ModalsModule.closeModal();
-      }
+      };
 
       const formValidations = {
-        "email": [VALIDATIONS.REQUIRED],
-      }
+        email: [VALIDATIONS.REQUIRED, VALIDATIONS.EMAIL],
+      };
 
       return {
         error,

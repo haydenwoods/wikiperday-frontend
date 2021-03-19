@@ -8,9 +8,9 @@ import { IErrors } from "@/store/modules/errors";
 // import { IFriends } from "@/store/modules/friends";
 
 export interface IRootState {
-  auth: IAuth,
-  modals: IModals,
-  errors: IErrors,
+  auth: IAuth;
+  modals: IModals;
+  errors: IErrors;
   // user: IUser,
   // friends: IFriends,
 }

@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "@/router/routes";
 
-import { getAuth } from "@/helpers/auth";
+import { getIsLoggedIn } from "@/helpers/auth";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -9,10 +9,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const hasAuth = getAuth() ? true : false;
+  const { requiresAuth } = to?.meta;
 
-  if (to.meta?.requiresAuth && !hasAuth) {
-    return next("/");
+  if (requiresAuth) {
+    const hasAuth = getIsLoggedIn() ? true : false;
+    if (!hasAuth) {
+      return next("/");
+    }
   }
 
   next();

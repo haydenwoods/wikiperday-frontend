@@ -1,59 +1,52 @@
 <template>
-  <Container>
+  <wd-container>
     <div class="w-full flex flex-col">
-      <Linker to="/friends">
-        <Title>
+      <wd-title>
+        <router-link to="/friends">
           <div class="flex flex-row items-center">
             Friends
-            <Icon name="chevronRight" type="secondary"/>
+            <wd-icon name="chevronRight" type="secondary" />
           </div>
-        </Title>
-      </Linker>
+        </router-link>
+      </wd-title>
+
+      <wd-spacer side="ver" size="1" />
 
       <div class="flex-row pt-4">
-        <Friend v-for="user in friends" :key="user._id" :user="user"/>
+        <Friend v-for="user in friends" :key="user._id" :user="user" />
         <Empty v-if="!hasFriends" icon="userGroup">
           Friends will show here.
         </Empty>
       </div>
     </div>
-  </Container>
+  </wd-container>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, } from "vue";
+  import { defineComponent, computed } from "vue";
 
-  import { getUser, getUserFriends } from "@/helpers/user";
+  import { AuthModule } from "@/store/modules/auth";
+
+  import { getUserFriends } from "@/helpers/user";
 
   import Friend from "@/components/organisms/Friends/Friend.vue";
   import Empty from "@/components/organisms/Empty.vue";
-  import Linker from "@/components/atoms/Linker.vue";
-  import Button from "@/components/atoms/Button.vue";
-  import Container from "@/components/atoms/Container.vue";
-  import Title from "@/components/atoms/Title.vue";
-  import Icon from "@/components/atoms/Icon/Icon.vue";
 
   export default defineComponent({
     name: "Friends",
     components: {
       Friend,
       Empty,
-      Linker,
-      Button,
-      Container,
-      Title,
-      Icon,
     },
     setup() {
-      const user = getUser();
-
+      const user = computed(() => AuthModule.getUser);
       const friends = computed(() => getUserFriends(user?.value));
       const hasFriends = computed(() => friends?.value?.length > 0);
 
       return {
         friends,
         hasFriends,
-      }
-    }
+      };
+    },
   });
 </script>
