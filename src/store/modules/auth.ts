@@ -9,20 +9,21 @@ import {
   getModule,
 } from "vuex-module-decorators";
 
+import { User } from "@/types/user";
+
 import { ModalsModule } from "@/store/modules/modals";
 import { ErrorsModule } from "@/store/modules/errors";
+import { ProcessModule } from "@/store/modules/process";
 
 import { setAuth, clrAuth } from "@/helpers/auth";
-import { User } from "@/types/user";
+import { clearModule } from "@/store/utils";
 
 const BASE_URL = process.env.VUE_APP_API_URL;
 
-export interface IAuth {
-  user: User | null;
-}
+clearModule("auth");
 
-@Module({ dynamic: true, name: "Auth", store })
-export default class Auth extends VuexModule implements IAuth {
+@Module({ dynamic: true, name: "auth", store })
+export default class Auth extends VuexModule {
   user: User | null = null;
 
   get getUser() {
@@ -49,7 +50,9 @@ export default class Auth extends VuexModule implements IAuth {
 
   @Action
   async signin({ email, password }: { email: string; password: string }) {
-    const ERROR_NAME = "signin";
+    const processName = "signin";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .post(`${BASE_URL}/auth/signin`, {
@@ -62,13 +65,13 @@ export default class Auth extends VuexModule implements IAuth {
         setAuth(auth);
         router.push("/dashboard");
         this.session();
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
-      .catch((err) => {
-        const res = err?.response;
+      .catch((error) => {
+        const res = error?.response;
         const message = res?.data?.message || "Unable to sign in.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 

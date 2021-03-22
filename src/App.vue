@@ -16,7 +16,7 @@
 
   import wdModals from "@/components/organisms/Modals/wdModals.vue";
 
-  import "@/styles/_generated.css";
+  import "@/styles/app.css";
 
   export default defineComponent({
     name: "App",

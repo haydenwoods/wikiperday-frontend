@@ -2,14 +2,19 @@ import axios from "axios";
 import store from "@/store";
 import { Module, VuexModule, Action, getModule } from "vuex-module-decorators";
 
+import { User } from "@/types/user";
+
 import { ModalsModule } from "@/store/modules/modals";
 import { ErrorsModule } from "@/store/modules/errors";
 import { AuthModule } from "@/store/modules/auth";
 
-import { User } from "@/types/user";
+import { clearModule } from "@/store/utils";
+
 const BASE_URL = process.env.VUE_APP_API_URL;
 
-@Module({ dynamic: true, name: "Friends", store })
+clearModule("friends");
+
+@Module({ dynamic: true, name: "friends", store })
 export default class Friends extends VuexModule {
   @Action
   async request({ email }: { email: string }) {

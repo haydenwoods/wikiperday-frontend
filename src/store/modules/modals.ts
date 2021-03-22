@@ -6,12 +6,12 @@ import {
   getModule,
 } from "vuex-module-decorators";
 
-export interface IModals {
-  currentModal: string | null;
-}
+import { clearModule } from "@/store/utils";
 
-@Module({ dynamic: true, name: "Modals", store })
-export default class Modals extends VuexModule implements IModals {
+clearModule("modals");
+
+@Module({ dynamic: true, name: "modals", store })
+export default class Modals extends VuexModule {
   currentModal: string | null = null;
 
   @Mutation

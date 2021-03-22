@@ -7,9 +7,13 @@ import { User } from "@/types/user";
 import { ModalsModule } from "@/store/modules/modals";
 import { ErrorsModule } from "@/store/modules/errors";
 
+import { clearModule } from "@/store/utils";
+
 const BASE_URL = process.env.VUE_APP_API_URL;
 
-@Module({ dynamic: true, name: "User", store })
+clearModule("user");
+
+@Module({ dynamic: true, name: "user", store })
 export default class UserStore extends VuexModule {
   @Action
   async getUser({ id }: { id: string }) {

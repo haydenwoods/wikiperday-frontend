@@ -8,12 +8,12 @@ import {
 
 import { Error } from "@/types/error";
 
-export interface IErrors {
-  errors: Record<string, Error>;
-}
+import { clearModule } from "@/store/utils";
 
-@Module({ dynamic: true, name: "Errors", store })
-export default class Errors extends VuexModule implements IErrors {
+clearModule("errors");
+
+@Module({ dynamic: true, name: "errors", store })
+export default class Errors extends VuexModule {
   errors: Record<string, Error> = {};
 
   @Mutation

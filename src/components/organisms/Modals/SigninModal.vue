@@ -26,17 +26,18 @@
         <wd-button width="full" height="lg"> Sign in </wd-button>
       </wd-form>
 
-      <template v-if="error">
-        <wd-spacer size="4" />
-        <wd-text type="error" align="center">
-          {{ error }}
-        </wd-text>
-      </template>
+      <wd-spacer side="ver" size="3" />
 
-      <wd-spacer side="ver" size="6" />
+      <wd-text type="error" align="center">
+        {{ formError }}
+        <wd-error v-if="!formError" :names="['signin']" />
+      </wd-text>
+
+      <wd-spacer side="ver" size="3" />
 
       <wd-text align="center">
         Don't have an account?
+
         <wd-button
           type="text"
           height="xsm"
@@ -50,10 +51,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed } from "vue";
+  import { defineComponent, ref } from "vue";
   import { ModalsModule } from "@/store/modules/modals";
   import { AuthModule } from "@/store/modules/auth";
-  import { ErrorsModule } from "@/store/modules/errors";
 
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
@@ -61,8 +61,6 @@
     name: "SigninModal",
     setup() {
       const formError = ref();
-      const reqError = computed(() => ErrorsModule.errors["signin"]?.message);
-      const error = computed(() => formError.value || reqError.value);
 
       const openModal = ({ name }: { name: string }) =>
         ModalsModule.openModal({ name });
@@ -83,7 +81,7 @@
       };
 
       return {
-        error,
+        formError,
         openModal,
         onFormSubmit,
         onFormError,

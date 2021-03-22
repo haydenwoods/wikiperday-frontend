@@ -40,11 +40,8 @@
           {
             value: props.type,
             values: {
-              primary: `
-                bg-accent-primary text-accent-text-primary font-medium px-4
-              `,
+              primary: `bg-accent-primary text-accent-text-primary font-medium px-4`,
               secondary: "bg-gray-300 text-gray-600 font-medium px-4",
-              text: "text-gray-600 hover:underline",
             },
           },
           {
