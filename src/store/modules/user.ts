@@ -5,7 +5,7 @@ import { Module, VuexModule, Action, getModule } from "vuex-module-decorators";
 import { User } from "@/types/user";
 
 import { ModalsModule } from "@/store/modules/modals";
-import { ErrorsModule } from "@/store/modules/errors";
+import { ProcessModule } from "@/store/modules/process";
 
 import { clearModule } from "@/store/utils";
 
@@ -17,7 +17,9 @@ clearModule("user");
 export default class UserStore extends VuexModule {
   @Action
   async getUser({ id }: { id: string }) {
-    const ERROR_NAME = "getUser";
+    const processName = "getUser";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     const user: User = await axios
       .get(`${BASE_URL}/users/user`, {
@@ -28,7 +30,7 @@ export default class UserStore extends VuexModule {
       .then((res) => {
         const { user } = res.data;
 
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
 
         return user;
       })
@@ -36,7 +38,7 @@ export default class UserStore extends VuexModule {
         const res = err?.response;
         const message = res?.data?.message || "Unable to get user.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
 
     return user;
@@ -54,7 +56,9 @@ export default class UserStore extends VuexModule {
     email: string;
     password: string;
   }) {
-    const ERROR_NAME = "signup";
+    const processName = "signup";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     await axios
       .post(`${BASE_URL}/users/signup`, {
@@ -65,13 +69,13 @@ export default class UserStore extends VuexModule {
       })
       .then(() => {
         ModalsModule.closeModal({ name: "SignupModal" });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((err) => {
         const res = err?.response;
         const message = res?.data?.message || "Unable to signup.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 }

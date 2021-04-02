@@ -5,7 +5,7 @@ import { Module, VuexModule, Action, getModule } from "vuex-module-decorators";
 import { User } from "@/types/user";
 
 import { ModalsModule } from "@/store/modules/modals";
-import { ErrorsModule } from "@/store/modules/errors";
+import { ProcessModule } from "@/store/modules/process";
 import { AuthModule } from "@/store/modules/auth";
 
 import { clearModule } from "@/store/utils";
@@ -18,7 +18,9 @@ clearModule("friends");
 export default class Friends extends VuexModule {
   @Action
   async request({ email }: { email: string }) {
-    const ERROR_NAME = "friendsRequest";
+    const processName = "friendsRequest";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .post(`${BASE_URL}/friends/request`, {
@@ -29,19 +31,21 @@ export default class Friends extends VuexModule {
 
         AuthModule.updateUser({ user });
         ModalsModule.closeModal({ name: "AddFriendModal" });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((error) => {
         const res = error?.response;
         const message = res?.data?.message || "Unable send friend request.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 
   @Action
   async accept({ id }: { id: string }) {
-    const ERROR_NAME = "friendsAccept";
+    const processName = "friendsAccept";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .put(`${BASE_URL}/friends/accept`, {
@@ -51,20 +55,22 @@ export default class Friends extends VuexModule {
         const user: User = res.data?.user;
 
         AuthModule.updateUser({ user });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((error) => {
         const res = error?.response;
         const message =
           res?.data?.message || "Unable to accept friend request.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 
   @Action
   async decline({ id }: { id: string }) {
-    const ERROR_NAME = "friendsDecline";
+    const processName = "friendsDecline";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .put(`${BASE_URL}/friends/decline`, {
@@ -74,20 +80,22 @@ export default class Friends extends VuexModule {
         const user: User = res.data?.user;
 
         AuthModule.updateUser({ user });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((error) => {
         const res = error?.response;
         const message =
           res?.data?.message || "Unable to decline friend request.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 
   @Action
   async remove({ id }: { id: string }) {
-    const ERROR_NAME = "friendsRemove";
+    const processName = "friendsRemove";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .delete(`${BASE_URL}/friends/remove`, {
@@ -99,19 +107,21 @@ export default class Friends extends VuexModule {
         const user: User = res.data?.user;
 
         AuthModule.updateUser({ user });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((error) => {
         const res = error?.response;
         const message = res?.data?.message || "Unable to remove friend.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 
   @Action
   async cancel({ id }: { id: string }) {
-    const ERROR_NAME = "friendsCancel";
+    const processName = "friendsCancel";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .delete(`${BASE_URL}/friends/cancel`, {
@@ -123,14 +133,14 @@ export default class Friends extends VuexModule {
         const user: User = res.data?.user;
 
         AuthModule.updateUser({ user });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((error) => {
         const res = error?.response;
         const message =
           res?.data?.message || "Unable to cancel friend request.";
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 }

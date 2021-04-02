@@ -1,6 +1,6 @@
 <template>
   <Dropdown type="text">
-    {{ fullName }}
+    {{ name }}
 
     <template #menu>
       <wd-menu>
@@ -24,7 +24,7 @@
   import { defineComponent, computed } from "vue";
   import { AuthModule } from "@/store/modules/auth";
 
-  import { getUserFullName } from "@/helpers/user";
+  import { getUserName } from "@/helpers/user";
 
   import Dropdown from "@/components/organisms/Dropdown.vue";
 
@@ -34,10 +34,10 @@
       Dropdown,
     },
     setup() {
-      const user = computed(() => AuthModule.getUser);
+      const user = computed(() => AuthModule.user);
 
       return {
-        fullName: computed(() => getUserFullName(user?.value)),
+        name: computed(() => getUserName(user?.value)),
         onSignout: () => AuthModule.signout(),
       };
     },

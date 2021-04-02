@@ -4,7 +4,7 @@ import { Status } from "@/types/process";
 
 export const getProcess = ({ name }: { name?: string }) => {
   if (!name) return null;
-  const process = ProcessModule.getProcesses?.[name];
+  const process = ProcessModule.processes?.[name];
   return process;
 };
 

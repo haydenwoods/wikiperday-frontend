@@ -9,7 +9,6 @@
 
 <script lang="ts">
   import { defineComponent } from "vue";
-  import { AuthModule } from "@/store/modules/auth";
 
   import { DEFAULT_THEME } from "@/theme";
   import { setTheme } from "@/theme/utils";
@@ -24,7 +23,6 @@
       wdModals,
     },
     setup() {
-      AuthModule.session();
       setTheme(DEFAULT_THEME);
     },
   });

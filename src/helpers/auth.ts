@@ -20,7 +20,7 @@ export const clrAuth = () => localStorage.removeItem(AUTH_STORAGE_KEY);
 
 export const getIsLoggedIn = () => {
   return computed(() => {
-    const user = AuthModule.getUser;
+    const user = AuthModule.user;
     const isLoggedIn = user ? true : false;
 
     return isLoggedIn;

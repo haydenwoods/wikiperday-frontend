@@ -30,18 +30,20 @@
 
 <script lang="ts">
   import { defineComponent, ref, computed } from "vue";
+
   import { ModalsModule } from "@/store/modules/modals";
   import { FriendsModule } from "@/store/modules/friends";
-  import { ErrorsModule } from "@/store/modules/errors";
+  import { ProcessModule } from "@/store/modules/process";
 
+  import { getProcessError } from "@/helpers/process";
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
   export default defineComponent({
     name: "SigninModal",
     setup() {
       const formError = ref();
-      const reqError = computed(
-        () => ErrorsModule?.errors["friendsRequest"]?.message
+      const reqError = computed(() =>
+        getProcessError({ name: "friendsRequest" })
       );
       const error = computed(() => formError.value || reqError.value);
 
@@ -51,6 +53,7 @@
         values: Record<string, string>;
       }) => {
         const { email } = values;
+        formError.value = null;
         await FriendsModule.request({ email });
       };
 
@@ -59,7 +62,7 @@
       };
 
       const onClose = () => {
-        ErrorsModule.clrError({ name: "friendsRequest" });
+        ProcessModule.clearProcess({ name: "friendsRequest" });
         ModalsModule.closeModal();
       };
 

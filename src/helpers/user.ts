@@ -16,11 +16,11 @@ export const getUserFirstName = (user: User | null) => {
   return firstName;
 };
 
-export const getUserFullName = (user: User | null) => {
+export const getUserName = (user: User | null) => {
   const firstName = user?.firstName;
   const lastName = user?.lastName;
-  const fullName = `${firstName} ${lastName}`;
-  return fullName;
+  const name = `${firstName} ${lastName}`;
+  return name;
 };
 
 export const getUserFriends = (user: User | null) => {

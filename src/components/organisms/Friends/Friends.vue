@@ -39,7 +39,7 @@
       Empty,
     },
     setup() {
-      const user = computed(() => AuthModule.getUser);
+      const user = computed(() => AuthModule.user);
       const friends = computed(() => getUserFriends(user?.value));
       const hasFriends = computed(() => friends?.value?.length > 0);
 

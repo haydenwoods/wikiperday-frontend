@@ -9,7 +9,7 @@
       ></div>
 
       <div class="h-32 pl-80 pt-6">
-        <wd-title size="lg">{{ fullName }}</wd-title>
+        <wd-title size="lg">{{ name }}</wd-title>
         <wd-spacer side="ver" size="1" />
         <wd-text size="lg" type="secondary"
           >Joined on the 28th of February 2020</wd-text
@@ -31,7 +31,7 @@
 
   import { UserModule } from "@/store/modules/user";
 
-  import { getUserFullName } from "@/helpers/user";
+  import { getUserName } from "@/helpers/user";
 
   import Page from "@/components/templates/Page.vue";
   import Friends from "@/components/organisms/Friends/Friends.vue";
@@ -50,11 +50,11 @@
 
       const user = await UserModule.getUser({ id });
 
-      const fullName = computed(() => getUserFullName(user));
+      const name = computed(() => getUserName(user));
 
       return {
         user,
-        fullName,
+        name,
       };
     },
   });

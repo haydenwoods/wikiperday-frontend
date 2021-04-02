@@ -3,18 +3,23 @@
     <div class="flex flex-row">
       <div class="w-3/4">
         <div class="w-full flex flex-row mb-8">
-          <AccentBox title="DAY" subtitle="5" />
+          <AccentBox title="DAY" :subtitle="dayCount" />
 
           <div class="flex-grow self-center ml-6">
             <wd-title size="lg">Welcome back {{ firstName }},</wd-title>
-            <wd-title size="sm" type="secondary"
-              >Your daily article is ready for you to read.</wd-title
-            >
+            <wd-title size="sm" type="secondary">
+              Your daily article is ready for you to read.
+            </wd-title>
           </div>
         </div>
-        <Article />
+
+        <div v-for="(userArticle, i) in user?.articles" :key="i" class="mb-12">
+          <Article v-bind="userArticle" />
+        </div>
       </div>
+
       <wd-spacer size="12" />
+
       <div class="w-1/4">
         <Friends class="mb-12" />
         <Categories class="mb-12" />
@@ -46,9 +51,11 @@
       Categories,
     },
     setup() {
-      const user = computed(() => AuthModule.getUser);
+      const user = computed(() => AuthModule.user);
 
       return {
+        user,
+        dayCount: computed(() => user.value?.articles.length),
         firstName: computed(() => getUserFirstName(user?.value)),
       };
     },

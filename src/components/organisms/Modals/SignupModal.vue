@@ -62,17 +62,18 @@
 
 <script lang="ts">
   import { defineComponent, ref, computed } from "vue";
+
   import { ModalsModule } from "@/store/modules/modals";
   import { UserModule } from "@/store/modules/user";
-  import { ErrorsModule } from "@/store/modules/errors";
 
+  import { getProcessError } from "@/helpers/process";
   import { VALIDATIONS } from "@/helpers/validation/validations";
 
   export default defineComponent({
     name: "SignupModal",
     setup() {
       const formError = ref();
-      const reqError = computed(() => ErrorsModule?.errors["signup"]?.message);
+      const reqError = computed(() => getProcessError({ name: "signup" }));
       const error = computed(() => formError.value || reqError.value);
 
       const openModal = ({ name }: { name: string }) =>

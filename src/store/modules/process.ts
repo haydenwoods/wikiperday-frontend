@@ -16,10 +16,6 @@ clearModule("process");
 class Process extends VuexModule {
   processes: Processes = {};
 
-  get getProcesses() {
-    return this.processes;
-  }
-
   @Mutation
   setStatus({ name, status }: { name: string; status: Status }) {
     this.processes = {

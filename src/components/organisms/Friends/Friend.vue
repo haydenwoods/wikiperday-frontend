@@ -6,7 +6,7 @@
       <div class="flex flex-row items-center">
         <div class="h-10 w-10 rounded-full bg-gray-200"></div>
         <wd-spacer size="4" />
-        <wd-text size="lg">{{ fullName }}</wd-text>
+        <wd-text size="lg">{{ name }}</wd-text>
       </div>
     </wd-button>
 
@@ -58,7 +58,7 @@
   import Friends from "@/store/modules/friends";
 
   import { User } from "@/types/user";
-  import { getUserFullName } from "@/helpers/user";
+  import { getUserName } from "@/helpers/user";
 
   import Dropdown from "@/components/organisms/Dropdown.vue";
 
@@ -90,7 +90,7 @@
           : null;
 
       return {
-        fullName: computed(() => getUserFullName(props.user)),
+        name: computed(() => getUserName(props.user)),
         acceptRequest: () => friendsModule.accept({ id: userId?.value }),
         declineRequest: () => friendsModule.decline({ id: userId?.value }),
         cancelRequest: () => friendsModule.cancel({ id: userId?.value }),

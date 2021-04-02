@@ -12,7 +12,6 @@ import {
 import { User } from "@/types/user";
 
 import { ModalsModule } from "@/store/modules/modals";
-import { ErrorsModule } from "@/store/modules/errors";
 import { ProcessModule } from "@/store/modules/process";
 
 import { setAuth, clrAuth } from "@/helpers/auth";
@@ -25,10 +24,6 @@ clearModule("auth");
 @Module({ dynamic: true, name: "auth", store })
 export default class Auth extends VuexModule {
   user: User | null = null;
-
-  get getUser() {
-    return this.user;
-  }
 
   @Mutation
   setUser({ user }: { user: User }) {
@@ -84,15 +79,18 @@ export default class Auth extends VuexModule {
 
   @Action
   async session() {
-    const ERROR_NAME = "session";
+    const processName = "session";
+
+    ProcessModule.setStatus({ name: processName, status: "loading" });
 
     axios
       .get(`${BASE_URL}/auth/session`)
       .then((res) => {
         const user: User = res?.data?.user;
         this.setUser({ user });
+
         ModalsModule.closeModal({ name: "SigninModal" });
-        ErrorsModule.clrError({ name: ERROR_NAME });
+        ProcessModule.setStatus({ name: processName, status: "success" });
       })
       .catch((err) => {
         const res = err?.response;
@@ -101,7 +99,7 @@ export default class Auth extends VuexModule {
         clrAuth();
         router.push("/");
 
-        ErrorsModule.setError({ name: ERROR_NAME, error: { message } });
+        ProcessModule.setError({ name: processName, error: message });
       });
   }
 }
